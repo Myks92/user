@@ -14,7 +14,7 @@ composer require myks92/user
 
 ## Use
 
-All use instructions are located in documentation.
+All use instructions are located in [documentation](./docs/readme.md).
 
 ## Testing
 
