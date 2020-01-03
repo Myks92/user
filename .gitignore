@@ -1,0 +1,11 @@
+###> other ###
+/.idea/
+/vendor/
+/composer.phar
+###> other ###
+
+###> phpunit/phpunit ###
+phpunit.xml
+.phpunit.result.cache
+/phpunit.phar
+###< phpunit/phpunit ###

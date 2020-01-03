@@ -1,0 +1,56 @@
+{
+  "name": "myks92/user",
+  "description": "User Component",
+  "keywords": ["user", "user management"],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Maksim Vorozhsov",
+      "role": "Developer PHP",
+      "email": "myks1992@mail.ru"
+    }
+  ],
+  "require": {
+    "php": "^7.3.0",
+    "ext-PDO": "^7.3",
+    "ext-ctype": "*",
+    "ext-iconv": "*",
+    "symfony/validator": "4.4.*",
+    "doctrine/orm": "2.7.*",
+    "webmozart/assert": "^1.6",
+    "ramsey/uuid": "^3.9",
+    "knplabs/knp-components":   "^2.0",
+    "nyholm/psr7": "^1.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.5 || ^8.5"
+  },
+  "suggest": {
+    "doctrine/migrations": "2.2.*"
+  },
+  "config": {
+    "preferred-install": {
+      "*": "dist"
+    },
+    "sort-packages": true
+  },
+  "autoload": {
+    "psr-4": {
+      "Myks92\\User\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Myks92\\User\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
+  }
+}
