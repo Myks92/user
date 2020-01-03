@@ -1,0 +1,20 @@
+language: php
+
+php:
+  - 7.3
+
+# faster builds on new travis setup not using sudo
+sudo: false
+
+# cache vendor dirs
+cache:
+  directories:
+    - vendor
+    - $HOME/.composer/cache/files
+
+# install dependencies
+install:
+  - composer self-update
+  - composer update $COMPOSER_FLAGS --prefer-dist
+
+script: composer test
