@@ -1,6 +1,4 @@
-Guide
-
-## Use
+## Guide
 
 ### Implement required interfaces
 
