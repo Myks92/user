@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Myks92\User\Model;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @author Maxim Vorozhtsov <myks1992@mail.ru>
@@ -16,9 +17,9 @@ class Flusher
 
     /**
      * @param EntityManagerInterface $em
-     * @param EventDispatcher $dispatcher
+     * @param EventDispatcherInterface $dispatcher
      */
-    public function __construct(EntityManagerInterface $em, EventDispatcher $dispatcher)
+    public function __construct(EntityManagerInterface $em, EventDispatcherInterface $dispatcher)
     {
         $this->em = $em;
         $this->dispatcher = $dispatcher;

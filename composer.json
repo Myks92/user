@@ -12,7 +12,7 @@
     }
   ],
   "require": {
-    "php": "^7.3.0",
+    "php": "^7.3",
     "ext-PDO": "^7.3",
     "ext-ctype": "*",
     "ext-iconv": "*",
@@ -21,10 +21,14 @@
     "webmozart/assert": "^1.6",
     "ramsey/uuid": "^3.9",
     "knplabs/knp-components":   "^2.0",
-    "nyholm/psr7": "^1.1"
+    "nyholm/psr7": "^1.1",
+    "psr/event-dispatcher": "^1.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^7.5 || ^8.5"
+  },
+  "provide": {
+    "psr/event-dispatcher-implementation": "1.0.0"
   },
   "suggest": {
     "doctrine/migrations": "2.2.*"
