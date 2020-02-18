@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Myks92\User\Model\User\Service;
 
-use Myks92\User\Model\User\Entity\User\ResetToken;
 use DateInterval;
 use DateTimeImmutable;
 use Exception;
+use Myks92\User\Model\User\Entity\User\ResetToken;
 use Ramsey\Uuid\Uuid;
 
 /**

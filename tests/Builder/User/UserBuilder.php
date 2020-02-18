@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Myks92\User\Tests\Builder\User;
 
+use BadMethodCallException;
+use DateTimeImmutable;
 use Myks92\User\Model\User\Entity\User\Email;
 use Myks92\User\Model\User\Entity\User\Id;
 use Myks92\User\Model\User\Entity\User\Name;
 use Myks92\User\Model\User\Entity\User\Role;
 use Myks92\User\Model\User\Entity\User\User;
-use BadMethodCallException;
-use DateTimeImmutable;
 
 class UserBuilder
 {

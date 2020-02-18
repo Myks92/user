@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Myks92\User\Model\User\UseCase\Network\Auth;
 
+use DateTimeImmutable;
+use DomainException;
+use Exception;
 use Myks92\User\Model\Flusher;
 use Myks92\User\Model\User\Entity\User\Id;
 use Myks92\User\Model\User\Entity\User\Name;
 use Myks92\User\Model\User\Entity\User\User;
-use Myks92\User\Model\User\Entity\User\UserRepository;
-use DateTimeImmutable;
-use DomainException;
-use Exception;
 use Myks92\User\Model\User\Entity\User\UserRepositoryInterface;
 
 /**

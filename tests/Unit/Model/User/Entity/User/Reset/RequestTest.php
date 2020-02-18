@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Myks92\User\Tests\Unit\Model\User\Entity\User\Reset;
 
+use DateTimeImmutable;
 use Myks92\User\Model\User\Entity\User\ResetToken;
 use Myks92\User\Tests\Builder\User\UserBuilder;
-use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 
 class RequestTest extends TestCase

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Myks92\User\Model\User\Entity\User;
 
-use Myks92\User\Model\EntityNotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
+use Myks92\User\Model\EntityNotFoundException;
 
 /**
  * @author Maxim Vorozhtsov <myks1992@mail.ru>

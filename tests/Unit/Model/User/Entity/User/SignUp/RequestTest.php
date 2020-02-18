@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Myks92\User\Tests\Unit\Model\User\Entity\User\SignUp;
 
+use DateTimeImmutable;
 use Myks92\User\Model\User\Entity\User\Email;
 use Myks92\User\Model\User\Entity\User\Id;
 use Myks92\User\Model\User\Entity\User\Name;
 use Myks92\User\Model\User\Entity\User\User;
-use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 
 class RequestTest extends TestCase
