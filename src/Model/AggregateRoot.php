@@ -10,7 +10,7 @@ namespace Myks92\User\Model;
 interface AggregateRoot
 {
     /**
-     * @return object
+     * @return array
      */
-    public function releaseEvents(): object;
+    public function releaseEvents(): array;
 }

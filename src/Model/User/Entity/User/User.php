@@ -9,6 +9,23 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use DomainException;
 use Exception;
+use Myks92\User\Model\AggregateRoot;
+use Myks92\User\Model\EventsTrait;
+use Myks92\User\Model\User\Entity\User\Event\UserActivated;
+use Myks92\User\Model\User\Entity\User\Event\UserBlocked;
+use Myks92\User\Model\User\Entity\User\Event\UserByEmailRegistered;
+use Myks92\User\Model\User\Entity\User\Event\UserByNetworkRegistered;
+use Myks92\User\Model\User\Entity\User\Event\UserCreated;
+use Myks92\User\Model\User\Entity\User\Event\UserEdited;
+use Myks92\User\Model\User\Entity\User\Event\UserEmailChanged;
+use Myks92\User\Model\User\Entity\User\Event\UserEmailChangingRequested;
+use Myks92\User\Model\User\Entity\User\Event\UserNameChanged;
+use Myks92\User\Model\User\Entity\User\Event\UserNetworkAttached;
+use Myks92\User\Model\User\Entity\User\Event\UserNetworkDetached;
+use Myks92\User\Model\User\Entity\User\Event\UserPasswordChanged;
+use Myks92\User\Model\User\Entity\User\Event\UserPasswordChangingRequested;
+use Myks92\User\Model\User\Entity\User\Event\UserRegisterConfirmed;
+use Myks92\User\Model\User\Entity\User\Event\UserRoleChanged;
 
 /**
  * @ORM\Entity
@@ -18,8 +35,10 @@ use Exception;
  *     @ORM\UniqueConstraint(columns={"reset_token_token"})
  * })
  */
-class User
+class User implements AggregateRoot
 {
+    use EventsTrait;
+
     public const STATUS_WAIT = 'wait';
     public const STATUS_ACTIVE = 'active';
     public const STATUS_BLOCKED = 'blocked';
@@ -119,6 +138,7 @@ class User
         $user->email = $email;
         $user->passwordHash = $hash;
         $user->status = self::STATUS_ACTIVE;
+        $user->recordEvent(new UserCreated($id, $date, $name, $email));
         return $user;
     }
 
@@ -145,6 +165,7 @@ class User
         $user->passwordHash = $hash;
         $user->confirmToken = $token;
         $user->status = self::STATUS_WAIT;
+        $user->recordEvent(new UserByEmailRegistered($id, $date, $name, $email, $token));
         return $user;
     }
 
@@ -168,6 +189,7 @@ class User
         $user = new self($id, $date, $name);
         $user->attachNetwork($network, $identity);
         $user->status = self::STATUS_ACTIVE;
+        $user->recordEvent(new UserByNetworkRegistered($id, $date, $name, $network, $identity));
         return $user;
     }
 
@@ -185,6 +207,7 @@ class User
             }
         }
         $this->networks->add(new Network($this, $network, $identity));
+        $this->recordEvent(new UserNetworkAttached($this->id, $network, $identity));
     }
 
     public function confirmSignUp(): void
@@ -195,14 +218,7 @@ class User
 
         $this->status = self::STATUS_ACTIVE;
         $this->confirmToken = null;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isWait(): bool
-    {
-        return $this->status === self::STATUS_WAIT;
+        $this->recordEvent(new UserRegisterConfirmed($this->id, $this->status));
     }
 
     /**
@@ -217,6 +233,7 @@ class User
                     throw new DomainException('Unable to detach the last identity.');
                 }
                 $this->networks->removeElement($existing);
+                $this->recordEvent(new UserNetworkDetached($this->id, $network, $identity));
                 return;
             }
         }
@@ -239,14 +256,7 @@ class User
             throw new DomainException('Resetting is already requested.');
         }
         $this->resetToken = $token;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isActive(): bool
-    {
-        return $this->status === self::STATUS_ACTIVE;
+        $this->recordEvent(new UserPasswordChangingRequested($this->id, $token, $date));
     }
 
     /**
@@ -263,6 +273,7 @@ class User
         }
         $this->passwordHash = $hash;
         $this->resetToken = null;
+        $this->recordEvent(new UserPasswordChanged($this->id, $date));
     }
 
     /**
@@ -279,6 +290,7 @@ class User
         }
         $this->newEmail = $email;
         $this->newEmailToken = $token;
+        $this->recordEvent(new UserEmailChangingRequested($this->id, $email, $token));
     }
 
     /**
@@ -295,6 +307,7 @@ class User
         $this->email = $this->newEmail;
         $this->newEmail = null;
         $this->newEmailToken = null;
+        $this->recordEvent(new UserEmailChanged($this->id, $this->email));
     }
 
     /**
@@ -303,6 +316,7 @@ class User
     public function changeName(Name $name): void
     {
         $this->name = $name;
+        $this->recordEvent(new UserNameChanged($this->id, $name));
     }
 
     /**
@@ -313,6 +327,7 @@ class User
     {
         $this->name = $name;
         $this->email = $email;
+        $this->recordEvent(new UserEdited($this->id, $name, $email));
     }
 
     /**
@@ -324,6 +339,7 @@ class User
             throw new DomainException('Role is already same.');
         }
         $this->role = $role;
+        $this->recordEvent(new UserRoleChanged($this->id, $role));
     }
 
     public function activate(): void
@@ -332,6 +348,7 @@ class User
             throw new DomainException('User is already active.');
         }
         $this->status = self::STATUS_ACTIVE;
+        $this->recordEvent(new UserActivated($this->id, $this->status));
     }
 
     public function block(): void
@@ -340,6 +357,23 @@ class User
             throw new DomainException('User is already blocked.');
         }
         $this->status = self::STATUS_BLOCKED;
+        $this->recordEvent(new UserBlocked($this->id, $this->status));
+    }
+
+    /**
+     * @return bool
+     */
+    public function isWait(): bool
+    {
+        return $this->status === self::STATUS_WAIT;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->status === self::STATUS_ACTIVE;
     }
 
     /**

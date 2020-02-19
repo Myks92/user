@@ -12,7 +12,13 @@ use Psr\EventDispatcher\EventDispatcherInterface;
  */
 class Flusher
 {
+    /**
+     * @var EntityManagerInterface
+     */
     private $em;
+    /**
+     * @var EventDispatcherInterface
+     */
     private $dispatcher;
 
     /**
@@ -33,7 +39,9 @@ class Flusher
         $this->em->flush();
 
         foreach ($roots as $root) {
-            $this->dispatcher->dispatch($root->releaseEvents());
+            foreach ($root->releaseEvents() as $event) {
+                $this->dispatcher->dispatch($event);
+            }
         }
     }
 }

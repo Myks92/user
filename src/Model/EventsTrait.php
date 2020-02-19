@@ -11,6 +11,9 @@ namespace Myks92\User\Model;
  */
 trait EventsTrait
 {
+    /**
+     * @var array
+     */
     private $recordedEvents = [];
 
     /**
