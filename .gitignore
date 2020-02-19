@@ -2,7 +2,6 @@
 /.idea/
 /vendor/
 /composer.phar
-/composer.lock
 ###> other ###
 
 ###> phpunit/phpunit ###
