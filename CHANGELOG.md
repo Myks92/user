@@ -1,4 +1,7 @@
 ## 1.1.0 (2020-02-19)
+* Refactor test
+
+## 1.1.0 (2020-02-19)
 
 * Add subscribers events 
 * Refactor: optimize imports, reformat, rearrange cleanup
