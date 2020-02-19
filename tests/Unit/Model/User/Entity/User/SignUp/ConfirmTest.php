@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Myks92\User\Tests\Unit\Model\User\Entity\User\SignUp;
 
-use Myks92\User\Model\User\Entity\User\Event\UserRegisterConfirmed;
 use Myks92\User\Tests\Builder\User\UserBuilder;
 use PHPUnit\Framework\TestCase;
 
@@ -20,8 +19,6 @@ class ConfirmTest extends TestCase
         self::assertTrue($user->isActive());
 
         self::assertNull($user->getConfirmToken());
-
-        self::assertIsArray($user->releaseEvents(), UserRegisterConfirmed::class);
     }
 
     public function testAlready(): void

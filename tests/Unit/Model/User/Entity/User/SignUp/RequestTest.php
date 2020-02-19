@@ -6,7 +6,6 @@ namespace Myks92\User\Tests\Unit\Model\User\Entity\User\SignUp;
 
 use DateTimeImmutable;
 use Myks92\User\Model\User\Entity\User\Email;
-use Myks92\User\Model\User\Entity\User\Event\UserByEmailRegistered;
 use Myks92\User\Model\User\Entity\User\Id;
 use Myks92\User\Model\User\Entity\User\Name;
 use Myks92\User\Model\User\Entity\User\User;
@@ -36,7 +35,5 @@ class RequestTest extends TestCase
         self::assertEquals($token, $user->getConfirmToken());
 
         self::assertTrue($user->getRole()->isUser());
-
-        self::assertIsArray($user->releaseEvents(), UserByEmailRegistered::class);
     }
 }
