@@ -14,14 +14,10 @@
   "require": {
     "php": "^7.3",
     "ext-PDO": "^7.3",
-    "ext-ctype": "*",
-    "ext-iconv": "*",
     "symfony/validator": "4.4.*",
     "doctrine/orm": "2.7.*",
     "webmozart/assert": "^1.6",
     "ramsey/uuid": "^3.9",
-    "knplabs/knp-components":   "^2.0",
-    "nyholm/psr7": "^1.1",
     "psr/event-dispatcher": "^1.0"
   },
   "require-dev": {
