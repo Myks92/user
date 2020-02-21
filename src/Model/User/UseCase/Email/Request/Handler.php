@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace Myks92\User\Model\User\UseCase\Email\Request;
 
-use Exception;
-use Myks92\User\Model\Flusher;
-use Myks92\User\Model\User\Entity\User\Email;
-use Myks92\User\Model\User\Entity\User\Id;
-use Myks92\User\Model\User\Entity\User\UserRepository;
-use Myks92\User\Model\User\Entity\User\UserRepositoryInterface;
-use Myks92\User\Model\User\Service\NewEmailConfirmTokenizerInterface;
-use Myks92\User\Model\User\Service\NewEmailConfirmTokenSenderInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use DomainException;
+use Exception;
+use Myks92\User\Model\FlusherInterface;
+use Myks92\User\Model\User\Entity\User\Email;
+use Myks92\User\Model\User\Entity\User\Id;
+use Myks92\User\Model\User\Entity\User\UserRepositoryInterface;
+use Myks92\User\Model\User\Service\NewEmailConfirmTokenizerInterface;
+use Myks92\User\Model\User\Service\NewEmailConfirmTokenSenderInterface;
 
 /**
  * @author Maxim Vorozhtsov <myks1992@mail.ru>
@@ -30,13 +29,13 @@ class Handler
      * @param UserRepositoryInterface $users
      * @param NewEmailConfirmTokenizerInterface $tokenizer
      * @param NewEmailConfirmTokenSenderInterface $sender
-     * @param Flusher $flusher
+     * @param FlusherInterface $flusher
      */
     public function __construct(
         UserRepositoryInterface $users,
         NewEmailConfirmTokenizerInterface $tokenizer,
         NewEmailConfirmTokenSenderInterface $sender,
-        Flusher $flusher
+        FlusherInterface $flusher
     ) {
         $this->users = $users;
         $this->tokenizer = $tokenizer;

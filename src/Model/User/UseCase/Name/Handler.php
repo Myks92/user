@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Myks92\User\Model\User\UseCase\Name;
 
-use Myks92\User\Model\Flusher;
+use Myks92\User\Model\FlusherInterface;
 use Myks92\User\Model\User\Entity\User\Id;
 use Myks92\User\Model\User\Entity\User\Name;
-use Myks92\User\Model\User\Entity\User\UserRepository;
 use Myks92\User\Model\User\Entity\User\UserRepositoryInterface;
 
 /**
@@ -20,9 +19,9 @@ class Handler
 
     /**
      * @param UserRepositoryInterface $users
-     * @param Flusher $flusher
+     * @param FlusherInterface $flusher
      */
-    public function __construct(UserRepositoryInterface $users, Flusher $flusher)
+    public function __construct(UserRepositoryInterface $users, FlusherInterface $flusher)
     {
         $this->users = $users;
         $this->flusher = $flusher;

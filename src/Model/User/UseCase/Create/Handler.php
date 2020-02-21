@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace Myks92\User\Model\User\UseCase\Create;
 
-use Myks92\User\Model\Flusher;
+use DateTimeImmutable;
+use DomainException;
+use Exception;
+use Myks92\User\Model\FlusherInterface;
 use Myks92\User\Model\User\Entity\User\Email;
 use Myks92\User\Model\User\Entity\User\Id;
 use Myks92\User\Model\User\Entity\User\Name;
 use Myks92\User\Model\User\Entity\User\User;
-use Myks92\User\Model\User\Entity\User\UserRepository;
 use Myks92\User\Model\User\Entity\User\UserRepositoryInterface;
-use Myks92\User\Model\User\Service\PasswordGenerator;
+use Myks92\User\Model\User\Service\PasswordGeneratorInterface;
 use Myks92\User\Model\User\Service\PasswordHasherInterface;
-use DateTimeImmutable;
-use DomainException;
-use Exception;
 
 /**
  * @author Maxim Vorozhtsov <myks1992@mail.ru>
@@ -30,14 +29,14 @@ class Handler
     /**
      * @param UserRepositoryInterface $users
      * @param PasswordHasherInterface $hasher
-     * @param PasswordGenerator $generator
-     * @param Flusher $flusher
+     * @param PasswordGeneratorInterface $generator
+     * @param FlusherInterface $flusher
      */
     public function __construct(
         UserRepositoryInterface $users,
         PasswordHasherInterface $hasher,
-        PasswordGenerator $generator,
-        Flusher $flusher
+        PasswordGeneratorInterface $generator,
+        FlusherInterface $flusher
     ) {
         $this->users = $users;
         $this->hasher = $hasher;

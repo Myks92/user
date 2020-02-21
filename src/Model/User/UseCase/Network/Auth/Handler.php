@@ -7,7 +7,7 @@ namespace Myks92\User\Model\User\UseCase\Network\Auth;
 use DateTimeImmutable;
 use DomainException;
 use Exception;
-use Myks92\User\Model\Flusher;
+use Myks92\User\Model\FlusherInterface;
 use Myks92\User\Model\User\Entity\User\Id;
 use Myks92\User\Model\User\Entity\User\Name;
 use Myks92\User\Model\User\Entity\User\User;
@@ -23,9 +23,9 @@ class Handler
 
     /**
      * @param UserRepositoryInterface $users
-     * @param Flusher $flusher
+     * @param FlusherInterface $flusher
      */
-    public function __construct(UserRepositoryInterface $users, Flusher $flusher)
+    public function __construct(UserRepositoryInterface $users, FlusherInterface $flusher)
     {
         $this->users = $users;
         $this->flusher = $flusher;

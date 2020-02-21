@@ -4,21 +4,20 @@ declare(strict_types=1);
 
 namespace Myks92\User\Model\User\UseCase\SignUp\Request;
 
-use Myks92\User\Model\Flusher;
-use Myks92\User\Model\User\Entity\User\Email;
-use Myks92\User\Model\User\Entity\User\Id;
-use Myks92\User\Model\User\Entity\User\Name;
-use Myks92\User\Model\User\Entity\User\User;
-use Myks92\User\Model\User\Entity\User\UserRepository;
-use Myks92\User\Model\User\Entity\User\UserRepositoryInterface;
-use Myks92\User\Model\User\Service\PasswordHasherInterface;
-use Myks92\User\Model\User\Service\SignUpConfirmTokenizer;
-use Myks92\User\Model\User\Service\SignUpConfirmTokenSenderInterface;
 use DateTimeImmutable;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use DomainException;
 use Exception;
+use Myks92\User\Model\FlusherInterface;
+use Myks92\User\Model\User\Entity\User\Email;
+use Myks92\User\Model\User\Entity\User\Id;
+use Myks92\User\Model\User\Entity\User\Name;
+use Myks92\User\Model\User\Entity\User\User;
+use Myks92\User\Model\User\Entity\User\UserRepositoryInterface;
+use Myks92\User\Model\User\Service\PasswordHasherInterface;
+use Myks92\User\Model\User\Service\SignUpConfirmTokenizer;
+use Myks92\User\Model\User\Service\SignUpConfirmTokenSenderInterface;
 
 /**
  * @author Maxim Vorozhtsov <myks1992@mail.ru>
@@ -36,14 +35,14 @@ class Handler
      * @param PasswordHasherInterface $hasher
      * @param SignUpConfirmTokenizer $tokenizer
      * @param SignUpConfirmTokenSenderInterface $sender
-     * @param Flusher $flusher
+     * @param FlusherInterface $flusher
      */
     public function __construct(
         UserRepositoryInterface $users,
         PasswordHasherInterface $hasher,
         SignUpConfirmTokenizer $tokenizer,
         SignUpConfirmTokenSenderInterface $sender,
-        Flusher $flusher
+        FlusherInterface $flusher
     ) {
         $this->users = $users;
         $this->hasher = $hasher;

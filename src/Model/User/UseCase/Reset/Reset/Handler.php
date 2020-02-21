@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Myks92\User\Model\User\UseCase\Reset\Reset;
 
-use Myks92\User\Model\Flusher;
-use Myks92\User\Model\User\Entity\User\UserRepository;
-use Myks92\User\Model\User\Entity\User\UserRepositoryInterface;
-use Myks92\User\Model\User\Service\PasswordHasherInterface;
 use DateTimeImmutable;
 use DomainException;
 use Exception;
+use Myks92\User\Model\FlusherInterface;
+use Myks92\User\Model\User\Entity\User\UserRepositoryInterface;
+use Myks92\User\Model\User\Service\PasswordHasherInterface;
 
 /**
  * @author Maxim Vorozhtsov <myks1992@mail.ru>
@@ -24,10 +23,13 @@ class Handler
     /**
      * @param UserRepositoryInterface $users
      * @param PasswordHasherInterface $hasher
-     * @param Flusher $flusher
+     * @param FlusherInterface $flusher
      */
-    public function __construct(UserRepositoryInterface $users, PasswordHasherInterface $hasher, Flusher $flusher)
-    {
+    public function __construct(
+        UserRepositoryInterface $users,
+        PasswordHasherInterface $hasher,
+        FlusherInterface $flusher
+    ) {
         $this->users = $users;
         $this->hasher = $hasher;
         $this->flusher = $flusher;

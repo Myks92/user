@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Myks92\User\Model\User\UseCase\Reset\Request;
 
-use Myks92\User\Model\Flusher;
+use DateTimeImmutable;
+use Exception;
+use Myks92\User\Model\FlusherInterface;
 use Myks92\User\Model\User\Entity\User\Email;
-use Myks92\User\Model\User\Entity\User\UserRepository;
 use Myks92\User\Model\User\Entity\User\UserRepositoryInterface;
 use Myks92\User\Model\User\Service\ResetTokenizer;
 use Myks92\User\Model\User\Service\ResetTokenSenderInterface;
-use DateTimeImmutable;
-use Exception;
 
 /**
  * @author Maxim Vorozhtsov <myks1992@mail.ru>
@@ -26,13 +25,13 @@ class Handler
     /**
      * @param UserRepositoryInterface $users
      * @param ResetTokenizer $tokenizer
-     * @param Flusher $flusher
+     * @param FlusherInterface $flusher
      * @param ResetTokenSenderInterface $sender
      */
     public function __construct(
         UserRepositoryInterface $users,
         ResetTokenizer $tokenizer,
-        Flusher $flusher,
+        FlusherInterface $flusher,
         ResetTokenSenderInterface $sender
     ) {
         $this->users = $users;

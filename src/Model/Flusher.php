@@ -10,7 +10,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 /**
  * @author Maxim Vorozhtsov <myks1992@mail.ru>
  */
-class Flusher
+class Flusher implements FlusherInterface
 {
     /**
      * @var EntityManagerInterface
