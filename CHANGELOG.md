@@ -1,4 +1,11 @@
+## 1.1.2 (2020-02-22)
+
+* Extract interfaces for Flusher.php and PasswordGenerator.php, refactor
+* Update dependencies
+* Add support php 7.4 in .travis.yml
+
 ## 1.1.1 (2020-02-19)
+
 * Add composer.lock
 * Refactor test
 
