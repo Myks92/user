@@ -7,16 +7,16 @@
   "authors": [
     {
       "name": "Maksim Vorozhsov",
-      "role": "Developer PHP",
-      "email": "myks1992@mail.ru"
+      "email": "myks1992@mail.ru",
+      "role": "Developer PHP"
     }
   ],
   "require": {
     "php": "^7.3",
     "ext-PDO": "^7.3",
     "symfony/validator": "4.4.*",
-    "doctrine/orm": "2.7.*",
-    "webmozart/assert": "^1.6",
+    "doctrine/orm": "^2.7",
+    "webmozart/assert": "^1.7",
     "ramsey/uuid": "^3.9",
     "psr/event-dispatcher": "^1.0"
   },
@@ -27,7 +27,8 @@
     "psr/event-dispatcher-implementation": "1.0.0"
   },
   "suggest": {
-    "doctrine/migrations": "2.2.*"
+    "doctrine/migrations": "Doctrine generate migrations by entity",
+    "symfony/event-dispatcher": "For dispatching events and listening to them"
   },
   "config": {
     "preferred-install": {
