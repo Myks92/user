@@ -1,4 +1,4 @@
-## 1.1.2 (2020-02-22)
+## 1.2.0 (2020-02-22)
 
 * Extract interfaces for Flusher.php and PasswordGenerator.php, refactor
 * Update dependencies
