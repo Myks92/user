@@ -1,8 +1,8 @@
-#Implement required interfaces
+# Implement required interfaces
 
 Implement all required interfaces library
 
-##Event Dispatcher example
+## Event Dispatcher example
 [PSR-14](https://www.php-fig.org/psr/psr-14/) compatible event dispatcher provides an ability to dispatch events and listen to events dispatched.
 
 ```php
@@ -28,7 +28,7 @@ class SimpleEventDispatcher implements EventDispatcherInterface
     }
 }
 ```
-####Event dispatcher for frameworks:
+#### Event dispatcher for frameworks:
 
 - [Symfony](https://github.com/symfony/event-dispatcher)
 - [Yii2](https://github.com/yiisoft/event-dispatcher)
