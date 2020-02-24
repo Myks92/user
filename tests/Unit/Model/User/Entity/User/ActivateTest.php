@@ -11,11 +11,7 @@ class ActivateTest extends TestCase
 {
     public function testSuccess(): void
     {
-        $user = (new UserBuilder())->viaEmail()->build();
-
-        $user->block();
-
-        $user->activate();
+        $user = (new UserBuilder())->active()->build();
 
         self::assertTrue($user->isActive());
         self::assertFalse($user->isBlocked());
@@ -23,9 +19,7 @@ class ActivateTest extends TestCase
 
     public function testAlready(): void
     {
-        $user = (new UserBuilder())->viaEmail()->build();
-
-        $user->activate();
+        $user = (new UserBuilder())->active()->build();
 
         $this->expectExceptionMessage('User is already active.');
         $user->activate();

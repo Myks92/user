@@ -4,16 +4,22 @@ declare(strict_types=1);
 
 namespace Myks92\User\Tests\Unit\Model\User\Entity\User\SignUp;
 
+use DateTimeImmutable;
+use Myks92\User\Model\User\Entity\User\Token;
 use Myks92\User\Tests\Builder\User\UserBuilder;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 class ConfirmTest extends TestCase
 {
     public function testSuccess(): void
     {
-        $user = (new UserBuilder())->viaEmail()->build();
+        $token = $this->createToken();
 
-        $user->confirmSignUp();
+        $user = (new UserBuilder())->withJoinConfirmToken($token)->build();
+
+        $date = new DateTimeImmutable();
+        $user->confirmSignUp($token->getValue(), $date);
 
         self::assertFalse($user->isWait());
         self::assertTrue($user->isActive());
@@ -23,10 +29,22 @@ class ConfirmTest extends TestCase
 
     public function testAlready(): void
     {
-        $user = (new UserBuilder())->viaEmail()->build();
+        $token = $this->createToken();
 
-        $user->confirmSignUp();
-        $this->expectExceptionMessage('User is already confirmed.');
-        $user->confirmSignUp();
+        $user = (new UserBuilder())->withJoinConfirmToken($token)->active()->build();
+
+        $this->expectExceptionMessage('Confirmation is not required.');
+
+        $user->confirmSignUp(
+            $token->getValue(),
+            $token->getExpires()->modify('-1 day')
+        );
+    }
+
+    private function createToken(): Token
+    {
+        return new Token(
+            Uuid::uuid4()->toString(), new DateTimeImmutable('+1 day')
+        );
     }
 }

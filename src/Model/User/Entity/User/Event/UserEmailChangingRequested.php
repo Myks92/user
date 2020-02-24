@@ -8,6 +8,7 @@ namespace Myks92\User\Model\User\Entity\User\Event;
 
 use Myks92\User\Model\User\Entity\User\Email;
 use Myks92\User\Model\User\Entity\User\Id;
+use Myks92\User\Model\User\Entity\User\Token;
 
 /**
  * Event User Email Changing Requested
@@ -25,16 +26,16 @@ class UserEmailChangingRequested
      */
     public Email $email;
     /**
-     * @var string
+     * @var Token
      */
-    public string $token;
+    public Token $token;
 
     /**
      * @param Id $id
      * @param Email $email
-     * @param string $token
+     * @param Token $token
      */
-    public function __construct(Id $id, Email $email, string $token)
+    public function __construct(Id $id, Email $email, Token $token)
     {
         $this->id = $id;
         $this->email = $email;

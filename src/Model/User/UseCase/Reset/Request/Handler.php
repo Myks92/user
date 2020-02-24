@@ -9,8 +9,8 @@ use Exception;
 use Myks92\User\Model\FlusherInterface;
 use Myks92\User\Model\User\Entity\User\Email;
 use Myks92\User\Model\User\Entity\User\UserRepositoryInterface;
-use Myks92\User\Model\User\Service\ResetTokenizer;
 use Myks92\User\Model\User\Service\ResetTokenSenderInterface;
+use Myks92\User\Model\User\Service\TokenizerInterface;
 
 /**
  * @author Maxim Vorozhtsov <myks1992@mail.ru>
@@ -22,9 +22,9 @@ class Handler
      */
     private UserRepositoryInterface $users;
     /**
-     * @var ResetTokenizer
+     * @var TokenizerInterface
      */
-    private ResetTokenizer $tokenizer;
+    private TokenizerInterface $tokenizer;
     /**
      * @var FlusherInterface
      */
@@ -36,13 +36,13 @@ class Handler
 
     /**
      * @param UserRepositoryInterface $users
-     * @param ResetTokenizer $tokenizer
+     * @param TokenizerInterface $tokenizer
      * @param FlusherInterface $flusher
      * @param ResetTokenSenderInterface $sender
      */
     public function __construct(
         UserRepositoryInterface $users,
-        ResetTokenizer $tokenizer,
+        TokenizerInterface $tokenizer,
         FlusherInterface $flusher,
         ResetTokenSenderInterface $sender
     ) {
@@ -61,7 +61,8 @@ class Handler
     {
         $user = $this->users->getByEmail(new Email($command->email));
 
-        $user->requestPasswordReset($this->tokenizer->generate(), new DateTimeImmutable());
+        $date = new DateTimeImmutable();
+        $user->requestPasswordReset($this->tokenizer->generate($date), new DateTimeImmutable());
 
         $this->flusher->flush();
 

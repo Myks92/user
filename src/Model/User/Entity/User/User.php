@@ -64,10 +64,10 @@ class User implements AggregateRoot
      */
     private ?string $passwordHash = null;
     /**
-     * @var string|null
-     * @ORM\Column(type="string", name="confirm_token", nullable=true)
+     * @var Token|null
+     * @ORM\Embedded(class="Token", columnPrefix="confirm_token_")
      */
-    private ?string $confirmToken = null;
+    private ?Token $confirmToken = null;
     /**
      * @var Name
      * @ORM\Embedded(class="Name")
@@ -79,15 +79,15 @@ class User implements AggregateRoot
      */
     private ?Email $newEmail = null;
     /**
-     * @var string|null
-     * @ORM\Column(type="string", name="new_email_token", nullable=true)
+     * @var Token|null
+     * @ORM\Embedded(class="Token", columnPrefix="new_email_token_")
      */
-    private ?string $newEmailToken = null;
+    private ?Token $newEmailToken = null;
     /**
-     * @var ResetToken|null
-     * @ORM\Embedded(class="ResetToken", columnPrefix="reset_token_")
+     * @var Token|null
+     * @ORM\Embedded(class="Token", columnPrefix="reset_token_")
      */
-    private ?ResetToken $resetToken = null;
+    private ?Token $resetToken = null;
     /**
      * @var string
      * @ORM\Column(type="string", length=16)
@@ -148,7 +148,7 @@ class User implements AggregateRoot
      * @param Name $name
      * @param Email $email
      * @param string $hash
-     * @param string $token
+     * @param Token $token
      *
      * @return static
      */
@@ -158,7 +158,7 @@ class User implements AggregateRoot
         Name $name,
         Email $email,
         string $hash,
-        string $token
+        Token $token
     ): self {
         $user = new self($id, $date, $name);
         $user->email = $email;
@@ -210,12 +210,12 @@ class User implements AggregateRoot
         $this->recordEvent(new UserNetworkAttached($this->id, $network, $identity));
     }
 
-    public function confirmSignUp(): void
+    public function confirmSignUp(string $token, DateTimeImmutable $date): void
     {
-        if (!$this->isWait()) {
-            throw new DomainException('User is already confirmed.');
+        if ($this->confirmToken === null) {
+            throw new DomainException('Confirmation is not required.');
         }
-
+        $this->confirmToken->validate($token, $date);
         $this->status = self::STATUS_ACTIVE;
         $this->confirmToken = null;
         $this->recordEvent(new UserRegisterConfirmed($this->id, $this->status));
@@ -241,18 +241,18 @@ class User implements AggregateRoot
     }
 
     /**
-     * @param ResetToken $token
+     * @param Token $token
      * @param DateTimeImmutable $date
      */
-    public function requestPasswordReset(ResetToken $token, DateTimeImmutable $date): void
+    public function requestPasswordReset(Token $token, DateTimeImmutable $date): void
     {
         if (!$this->isActive()) {
             throw new DomainException('User is not active.');
         }
-        if (!$this->email) {
+        if ($this->email === null) {
             throw new DomainException('Email is not specified.');
         }
-        if ($this->resetToken && !$this->resetToken->isExpiredTo($date)) {
+        if ($this->resetToken !== null && !$this->resetToken->isExpiredTo($date)) {
             throw new DomainException('Resetting is already requested.');
         }
         $this->resetToken = $token;
@@ -260,33 +260,36 @@ class User implements AggregateRoot
     }
 
     /**
+     * @param string $token
      * @param DateTimeImmutable $date
      * @param string $hash
      */
-    public function passwordReset(DateTimeImmutable $date, string $hash): void
+    public function resetPassword(string $token, DateTimeImmutable $date, string $hash): void
     {
-        if (!$this->resetToken) {
+        if ($this->resetToken === null) {
             throw new DomainException('Resetting is not requested.');
         }
-        if ($this->resetToken->isExpiredTo($date)) {
-            throw new DomainException('Reset token is expired.');
-        }
+        $this->resetToken->validate($token, $date);
         $this->passwordHash = $hash;
         $this->resetToken = null;
         $this->recordEvent(new UserPasswordChanged($this->id, $date));
     }
 
     /**
+     * @param Token $token
+     * @param DateTimeImmutable $date
      * @param Email $email
-     * @param string $token
      */
-    public function requestEmailChanging(Email $email, string $token): void
+    public function requestEmailChanging(Token $token, DateTimeImmutable $date, Email $email): void
     {
         if (!$this->isActive()) {
             throw new DomainException('User is not active.');
         }
-        if ($this->email && $this->email->isEqual($email)) {
+        if ($this->email !== null && $this->email->isEqual($email)) {
             throw new DomainException('Email is already same.');
+        }
+        if ($this->newEmailToken !== null && !$this->newEmailToken->isExpiredTo($date)) {
+            throw new DomainException('Changing is already requested.');
         }
         $this->newEmail = $email;
         $this->newEmailToken = $token;
@@ -295,15 +298,14 @@ class User implements AggregateRoot
 
     /**
      * @param string $token
+     * @param DateTimeImmutable $date
      */
-    public function confirmEmailChanging(string $token): void
+    public function confirmEmailChanging(string $token, DateTimeImmutable $date): void
     {
-        if (!$this->newEmailToken) {
+        if ($this->newEmail === null || $this->newEmailToken === null) {
             throw new DomainException('Changing is not requested.');
         }
-        if ($this->newEmailToken !== $token) {
-            throw new DomainException('Incorrect changing token.');
-        }
+        $this->newEmailToken->validate($token, $date);
         $this->email = $this->newEmail;
         $this->newEmail = null;
         $this->newEmailToken = null;
@@ -417,9 +419,9 @@ class User implements AggregateRoot
     }
 
     /**
-     * @return string|null
+     * @return Token|null
      */
-    public function getConfirmToken(): ?string
+    public function getConfirmToken(): ?Token
     {
         return $this->confirmToken;
     }
@@ -441,17 +443,17 @@ class User implements AggregateRoot
     }
 
     /**
-     * @return string|null
+     * @return Token|null
      */
-    public function getNewEmailToken(): ?string
+    public function getNewEmailToken(): ?Token
     {
         return $this->newEmailToken;
     }
 
     /**
-     * @return ResetToken|null
+     * @return Token|null
      */
-    public function getResetToken(): ?ResetToken
+    public function getResetToken(): ?Token
     {
         return $this->resetToken;
     }

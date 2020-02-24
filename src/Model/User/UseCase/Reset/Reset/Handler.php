@@ -55,7 +55,7 @@ class Handler
             throw new DomainException('Incorrect or confirmed token.');
         }
 
-        $user->passwordReset(new DateTimeImmutable(), $this->hasher->hash($command->password));
+        $user->resetPassword($command->token, new DateTimeImmutable(), $this->hasher->hash($command->password));
 
         $this->flusher->flush();
     }

@@ -8,7 +8,7 @@ namespace Myks92\User\Model\User\Entity\User\Event;
 
 use DateTimeImmutable;
 use Myks92\User\Model\User\Entity\User\Id;
-use Myks92\User\Model\User\Entity\User\ResetToken;
+use Myks92\User\Model\User\Entity\User\Token;
 
 /**
  * Event User Password Changing Requested
@@ -22,9 +22,9 @@ class UserPasswordChangingRequested
      */
     public Id $id;
     /**
-     * @var ResetToken
+     * @var Token
      */
-    public ResetToken $token;
+    public Token $token;
     /**
      * @var DateTimeImmutable|DateTimeImmutable
      */
@@ -32,10 +32,10 @@ class UserPasswordChangingRequested
 
     /**
      * @param Id $id
-     * @param ResetToken $token
+     * @param Token $token
      * @param DateTimeImmutable $date
      */
-    public function __construct(Id $id, ResetToken $token, DateTimeImmutable $date)
+    public function __construct(Id $id, Token $token, DateTimeImmutable $date)
     {
         $this->id = $id;
         $this->token = $token;

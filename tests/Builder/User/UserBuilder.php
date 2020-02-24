@@ -4,23 +4,24 @@ declare(strict_types=1);
 
 namespace Myks92\User\Tests\Builder\User;
 
-use BadMethodCallException;
 use DateTimeImmutable;
 use Myks92\User\Model\User\Entity\User\Email;
 use Myks92\User\Model\User\Entity\User\Id;
 use Myks92\User\Model\User\Entity\User\Name;
 use Myks92\User\Model\User\Entity\User\Role;
+use Myks92\User\Model\User\Entity\User\Token;
 use Myks92\User\Model\User\Entity\User\User;
+use Ramsey\Uuid\Uuid;
 
 class UserBuilder
 {
     private Id $id;
     private DateTimeImmutable $date;
     private Name $name;
-    private ?Email $email = null;
+    private Email $email;
     private string $hash;
-    private string $token;
-    private bool $confirmed = false;
+    private Token $joinConfirmToken;
+    private bool $active = false;
 
     private ?string $network = null;
     private ?string $identity = null;
@@ -30,23 +31,31 @@ class UserBuilder
     public function __construct()
     {
         $this->id = Id::next();
-        $this->date = new DateTimeImmutable();
+        $this->email = new Email('mail@app.test');
         $this->name = new Name('First', 'Last');
+        $this->hash = 'hash';
+        $this->date = new DateTimeImmutable();
+        $this->joinConfirmToken = new Token(Uuid::uuid4()->toString(), $this->date->modify('+1 day'));
     }
 
-    public function viaEmail(Email $email = null, string $hash = null, string $token = null): self
+    public function withEmail(Email $email): self
     {
         $clone = clone $this;
-        $clone->email = $email ?? new Email('mail@app.test');
-        $clone->hash = $hash ?? 'hash';
-        $clone->token = $token ?? 'token';
+        $clone->email = $email;
         return $clone;
     }
 
-    public function confirmed(): self
+    public function withJoinConfirmToken(Token $token): self
     {
         $clone = clone $this;
-        $clone->confirmed = true;
+        $clone->joinConfirmToken = $token;
+        return $clone;
+    }
+
+    public function active(): self
+    {
+        $clone = clone $this;
+        $clone->active = true;
         return $clone;
     }
 
@@ -81,25 +90,8 @@ class UserBuilder
 
     public function build(): User
     {
-        $user = null;
-
-        if ($this->email) {
-            $user = User::signUpByEmail(
-                $this->id,
-                $this->date,
-                $this->name,
-                $this->email,
-                $this->hash,
-                $this->token
-            );
-
-            if ($this->confirmed) {
-                $user->confirmSignUp();
-            }
-        }
-
         if ($this->network) {
-            $user = User::signUpByNetwork(
+            return User::signUpByNetwork(
                 $this->id,
                 $this->date,
                 $this->name,
@@ -108,8 +100,20 @@ class UserBuilder
             );
         }
 
-        if (!$user) {
-            throw new BadMethodCallException('Specify via method.');
+        $user = User::signUpByEmail(
+            $this->id,
+            $this->date,
+            $this->name,
+            $this->email,
+            $this->hash,
+            $this->joinConfirmToken
+        );
+
+        if ($this->active) {
+            $user->confirmSignUp(
+                $this->joinConfirmToken->getValue(),
+                $this->joinConfirmToken->getExpires()->modify('-1 day')
+            );
         }
 
         if ($this->role) {

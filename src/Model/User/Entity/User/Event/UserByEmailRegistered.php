@@ -10,6 +10,7 @@ use DateTimeImmutable;
 use Myks92\User\Model\User\Entity\User\Email;
 use Myks92\User\Model\User\Entity\User\Id;
 use Myks92\User\Model\User\Entity\User\Name;
+use Myks92\User\Model\User\Entity\User\Token;
 
 /**
  * Event User By Email Registered
@@ -35,18 +36,18 @@ class UserByEmailRegistered
      */
     public Email $email;
     /**
-     * @var string
+     * @var Token
      */
-    public string $token;
+    public Token $token;
 
     /**
      * @param Id $id
      * @param DateTimeImmutable $date
      * @param Name $name
      * @param Email $email
-     * @param string $token
+     * @param Token $token
      */
-    public function __construct(Id $id, DateTimeImmutable $date, Name $name, Email $email, string $token)
+    public function __construct(Id $id, DateTimeImmutable $date, Name $name, Email $email, Token $token)
     {
         $this->id = $id;
         $this->date = $date;

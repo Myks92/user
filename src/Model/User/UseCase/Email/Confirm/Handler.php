@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Myks92\User\Model\User\UseCase\Email\Confirm;
 
+use DateTimeImmutable;
+use Exception;
 use Myks92\User\Model\FlusherInterface;
 use Myks92\User\Model\User\Entity\User\Id;
 use Myks92\User\Model\User\Entity\User\UserRepositoryInterface;
@@ -34,12 +36,16 @@ class Handler
 
     /**
      * @param Command $command
+     *
+     * @throws Exception
      */
     public function handle(Command $command): void
     {
         $user = $this->users->get(new Id($command->id));
 
-        $user->confirmEmailChanging($command->token);
+        $date = new DateTimeImmutable();
+
+        $user->confirmEmailChanging($command->token, $date);
 
         $this->flusher->flush();
     }

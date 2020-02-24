@@ -8,8 +8,11 @@ use DateTimeImmutable;
 use Myks92\User\Model\User\Entity\User\Email;
 use Myks92\User\Model\User\Entity\User\Id;
 use Myks92\User\Model\User\Entity\User\Name;
+use Myks92\User\Model\User\Entity\User\Role;
+use Myks92\User\Model\User\Entity\User\Token;
 use Myks92\User\Model\User\Entity\User\User;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 class RequestTest extends TestCase
 {
@@ -21,11 +24,8 @@ class RequestTest extends TestCase
             $name = new Name('First', 'Last'),
             $email = new Email('test@app.test'),
             $hash = 'hash',
-            $token = 'token'
+            $token = new Token(Uuid::uuid4()->toString(), new DateTimeImmutable())
         );
-
-        self::assertTrue($user->isWait());
-        self::assertFalse($user->isActive());
 
         self::assertEquals($id, $user->getId());
         self::assertEquals($date, $user->getDate());
@@ -34,6 +34,9 @@ class RequestTest extends TestCase
         self::assertEquals($hash, $user->getPasswordHash());
         self::assertEquals($token, $user->getConfirmToken());
 
-        self::assertTrue($user->getRole()->isUser());
+        self::assertTrue($user->isWait());
+        self::assertFalse($user->isActive());
+
+        self::assertEquals(Role::USER, $user->getRole()->getName());
     }
 }

@@ -40,7 +40,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function findByConfirmToken(string $token): ?User
     {
-        return $this->repo->findOneBy(['confirmToken' => $token]);
+        return $this->repo->findOneBy(['confirmToken.value' => $token]);
     }
 
     /**
@@ -50,7 +50,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function findByResetToken(string $token): ?User
     {
-        return $this->repo->findOneBy(['resetToken.token' => $token]);
+        return $this->repo->findOneBy(['resetToken.value' => $token]);
     }
 
     /**

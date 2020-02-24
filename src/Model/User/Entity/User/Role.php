@@ -24,7 +24,13 @@ class Role
      */
     public function __construct(string $name)
     {
-        Assert::oneOf($name, [self::USER, self::ADMIN,]);
+        Assert::oneOf(
+            $name,
+            [
+                self::USER,
+                self::ADMIN
+            ]
+        );
 
         $this->name = $name;
     }

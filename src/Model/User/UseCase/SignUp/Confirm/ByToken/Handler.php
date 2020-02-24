@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Myks92\User\Model\User\UseCase\SignUp\Confirm\ByToken;
 
+use DateTimeImmutable;
 use DomainException;
+use Exception;
 use Myks92\User\Model\FlusherInterface;
 use Myks92\User\Model\User\Entity\User\UserRepositoryInterface;
 
@@ -34,6 +36,8 @@ class Handler
 
     /**
      * @param Command $command
+     *
+     * @throws Exception
      */
     public function handle(Command $command): void
     {
@@ -41,7 +45,8 @@ class Handler
             throw new DomainException('Incorrect or confirmed token.');
         }
 
-        $user->confirmSignUp();
+        $date = new DateTimeImmutable();
+        $user->confirmSignUp($command->token, $date);
 
         $this->flusher->flush();
     }

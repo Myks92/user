@@ -11,7 +11,7 @@ class BlockTest extends TestCase
 {
     public function testSuccess(): void
     {
-        $user = (new UserBuilder())->viaEmail()->build();
+        $user = (new UserBuilder())->build();
 
         $user->block();
 
@@ -21,7 +21,7 @@ class BlockTest extends TestCase
 
     public function testAlready(): void
     {
-        $user = (new UserBuilder())->viaEmail()->build();
+        $user = (new UserBuilder())->build();
 
         $user->block();
 

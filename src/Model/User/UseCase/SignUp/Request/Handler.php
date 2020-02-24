@@ -16,8 +16,8 @@ use Myks92\User\Model\User\Entity\User\Name;
 use Myks92\User\Model\User\Entity\User\User;
 use Myks92\User\Model\User\Entity\User\UserRepositoryInterface;
 use Myks92\User\Model\User\Service\PasswordHasherInterface;
-use Myks92\User\Model\User\Service\SignUpConfirmTokenizer;
 use Myks92\User\Model\User\Service\SignUpConfirmTokenSenderInterface;
+use Myks92\User\Model\User\Service\TokenizerInterface;
 
 /**
  * @author Maxim Vorozhtsov <myks1992@mail.ru>
@@ -33,9 +33,9 @@ class Handler
      */
     private PasswordHasherInterface $hasher;
     /**
-     * @var SignUpConfirmTokenizer
+     * @var TokenizerInterface
      */
-    private SignUpConfirmTokenizer $tokenizer;
+    private TokenizerInterface $tokenizer;
     /**
      * @var SignUpConfirmTokenSenderInterface
      */
@@ -48,14 +48,14 @@ class Handler
     /**
      * @param UserRepositoryInterface $users
      * @param PasswordHasherInterface $hasher
-     * @param SignUpConfirmTokenizer $tokenizer
+     * @param TokenizerInterface $tokenizer
      * @param SignUpConfirmTokenSenderInterface $sender
      * @param FlusherInterface $flusher
      */
     public function __construct(
         UserRepositoryInterface $users,
         PasswordHasherInterface $hasher,
-        SignUpConfirmTokenizer $tokenizer,
+        TokenizerInterface $tokenizer,
         SignUpConfirmTokenSenderInterface $sender,
         FlusherInterface $flusher
     ) {
@@ -81,13 +81,15 @@ class Handler
             throw new DomainException('User already exists.');
         }
 
+        $date = new DateTimeImmutable();
+
         $user = User::signUpByEmail(
             Id::next(),
             new DateTimeImmutable(),
             new Name($command->firstName, $command->lastName),
             $email,
             $this->hasher->hash($command->password),
-            $token = $this->tokenizer->generate()
+            $token = $this->tokenizer->generate($date)
         );
 
         $this->users->add($user);

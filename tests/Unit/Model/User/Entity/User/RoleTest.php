@@ -12,7 +12,7 @@ class RoleTest extends TestCase
 {
     public function testSuccess(): void
     {
-        $user = (new UserBuilder())->viaEmail()->build();
+        $user = (new UserBuilder())->build();
 
         $user->changeRole(Role::admin());
 
@@ -22,7 +22,7 @@ class RoleTest extends TestCase
 
     public function testAlready(): void
     {
-        $user = (new UserBuilder())->viaEmail()->build();
+        $user = (new UserBuilder())->build();
 
         $this->expectExceptionMessage('Role is already same.');
 

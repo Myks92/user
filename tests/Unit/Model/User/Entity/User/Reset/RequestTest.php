@@ -5,18 +5,19 @@ declare(strict_types=1);
 namespace Myks92\User\Tests\Unit\Model\User\Entity\User\Reset;
 
 use DateTimeImmutable;
-use Myks92\User\Model\User\Entity\User\ResetToken;
+use Myks92\User\Model\User\Entity\User\Token;
 use Myks92\User\Tests\Builder\User\UserBuilder;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 class RequestTest extends TestCase
 {
     public function testSuccess(): void
     {
-        $now = new DateTimeImmutable();
-        $token = new ResetToken('token', $now->modify('+1 day'));
+        $user = (new UserBuilder())->active()->build();
 
-        $user = (new UserBuilder())->viaEmail()->confirmed()->build();
+        $now = new DateTimeImmutable();
+        $token = $this->createToken($now->modify('+1 hour'));
 
         $user->requestPasswordReset($token, $now);
 
@@ -25,10 +26,10 @@ class RequestTest extends TestCase
 
     public function testAlready(): void
     {
-        $now = new DateTimeImmutable();
-        $token = new ResetToken('token', $now->modify('+1 day'));
+        $user = (new UserBuilder())->active()->build();
 
-        $user = (new UserBuilder())->viaEmail()->confirmed()->build();
+        $now = new DateTimeImmutable();
+        $token = $this->createToken($now->modify('+1 hour'));
 
         $user->requestPasswordReset($token, $now);
 
@@ -38,27 +39,27 @@ class RequestTest extends TestCase
 
     public function testExpired(): void
     {
+        $user = (new UserBuilder())->active()->build();
+
         $now = new DateTimeImmutable();
+        $token = $this->createToken($now->modify('+1 hour'));
+        $user->requestPasswordReset($token, $now);
 
-        $user = (new UserBuilder())->viaEmail()->confirmed()->build();
+        self::assertEquals($token, $user->getResetToken());
 
-        $token1 = new ResetToken('token', $now->modify('+1 day'));
-        $user->requestPasswordReset($token1, $now);
+        $newDate = $now->modify('+2 hours');
+        $newToken = $this->createToken($newDate->modify('+1 hour'));
+        $user->requestPasswordReset($newToken, $newDate);
 
-        self::assertEquals($token1, $user->getResetToken());
-
-        $token2 = new ResetToken('token', $now->modify('+3 day'));
-        $user->requestPasswordReset($token2, $now->modify('+2 day'));
-
-        self::assertEquals($token2, $user->getResetToken());
+        self::assertEquals($newToken, $user->getResetToken());
     }
 
     public function testNotConfirmed(): void
     {
-        $now = new DateTimeImmutable();
-        $token = new ResetToken('token', $now->modify('+1 day'));
+        $user = (new UserBuilder())->build();
 
-        $user = (new UserBuilder())->viaEmail()->build();
+        $now = new DateTimeImmutable();
+        $token = $this->createToken($now->modify('+1 hour'));
 
         $this->expectExceptionMessage('User is not active.');
         $user->requestPasswordReset($token, $now);
@@ -66,12 +67,19 @@ class RequestTest extends TestCase
 
     public function testWithoutEmail(): void
     {
-        $now = new DateTimeImmutable();
-        $token = new ResetToken('token', $now->modify('+1 day'));
-
         $user = (new UserBuilder())->viaNetwork()->build();
+
+        $now = new DateTimeImmutable();
+        $token = $this->createToken($now->modify('+1 hour'));
 
         $this->expectExceptionMessage('Email is not specified.');
         $user->requestPasswordReset($token, $now);
+    }
+
+    private function createToken(DateTimeImmutable $date): Token
+    {
+        return new Token(
+            Uuid::uuid4()->toString(), $date
+        );
     }
 }

@@ -7,13 +7,13 @@ namespace Myks92\User\Model\User\Service;
 use DateInterval;
 use DateTimeImmutable;
 use Exception;
-use Myks92\User\Model\User\Entity\User\ResetToken;
+use Myks92\User\Model\User\Entity\User\Token;
 use Ramsey\Uuid\Uuid;
 
 /**
  * @author Maxim Vorozhtsov <myks1992@mail.ru>
  */
-class ResetTokenizer
+class Tokenizer implements TokenizerInterface
 {
     /**
      * @var DateInterval
@@ -29,11 +29,15 @@ class ResetTokenizer
     }
 
     /**
-     * @return ResetToken
+     * @param DateTimeImmutable $date
+     *
+     * @return Token
      * @throws Exception
      */
-    public function generate(): ResetToken
+    public function generate(DateTimeImmutable $date): Token
     {
-        return new ResetToken(Uuid::uuid4()->toString(), (new DateTimeImmutable())->add($this->interval));
+        return new Token(
+            Uuid::uuid4()->toString(), $date->add($this->interval)
+        );
     }
 }

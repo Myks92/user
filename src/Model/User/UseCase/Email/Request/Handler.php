@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Myks92\User\Model\User\UseCase\Email\Request;
 
+use DateTimeImmutable;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use DomainException;
@@ -12,8 +13,8 @@ use Myks92\User\Model\FlusherInterface;
 use Myks92\User\Model\User\Entity\User\Email;
 use Myks92\User\Model\User\Entity\User\Id;
 use Myks92\User\Model\User\Entity\User\UserRepositoryInterface;
-use Myks92\User\Model\User\Service\NewEmailConfirmTokenizerInterface;
 use Myks92\User\Model\User\Service\NewEmailConfirmTokenSenderInterface;
+use Myks92\User\Model\User\Service\TokenizerInterface;
 
 /**
  * @author Maxim Vorozhtsov <myks1992@mail.ru>
@@ -25,9 +26,9 @@ class Handler
      */
     private UserRepositoryInterface $users;
     /**
-     * @var NewEmailConfirmTokenizerInterface
+     * @var TokenizerInterface
      */
-    private NewEmailConfirmTokenizerInterface $tokenizer;
+    private TokenizerInterface $tokenizer;
     /**
      * @var NewEmailConfirmTokenSenderInterface
      */
@@ -39,13 +40,13 @@ class Handler
 
     /**
      * @param UserRepositoryInterface $users
-     * @param NewEmailConfirmTokenizerInterface $tokenizer
+     * @param TokenizerInterface $tokenizer
      * @param NewEmailConfirmTokenSenderInterface $sender
      * @param FlusherInterface $flusher
      */
     public function __construct(
         UserRepositoryInterface $users,
-        NewEmailConfirmTokenizerInterface $tokenizer,
+        TokenizerInterface $tokenizer,
         NewEmailConfirmTokenSenderInterface $sender,
         FlusherInterface $flusher
     ) {
@@ -72,7 +73,13 @@ class Handler
             throw new DomainException('Email is already in use.');
         }
 
-        $user->requestEmailChanging($email, $token = $this->tokenizer->generate());
+        $date = new DateTimeImmutable();
+
+        $user->requestEmailChanging(
+            $token = $this->tokenizer->generate($date),
+            $date,
+            $email
+        );
 
         $this->flusher->flush();
 
