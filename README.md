@@ -26,7 +26,7 @@ To install, use composer:
 composer require myks92/user
 ```
 
-## Use
+## Documentation
 
 All use instructions are located in [documentation](./docs/readme.md).
 
