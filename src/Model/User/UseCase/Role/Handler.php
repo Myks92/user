@@ -14,8 +14,14 @@ use Myks92\User\Model\User\Entity\User\UserRepositoryInterface;
  */
 class Handler
 {
-    private $users;
-    private $flusher;
+    /**
+     * @var UserRepositoryInterface
+     */
+    private UserRepositoryInterface $users;
+    /**
+     * @var FlusherInterface
+     */
+    private FlusherInterface $flusher;
 
     /**
      * @param UserRepositoryInterface $users

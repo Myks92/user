@@ -14,7 +14,10 @@ class Role
     public const USER = 'ROLE_USER';
     public const ADMIN = 'ROLE_ADMIN';
 
-    private $name;
+    /**
+     * @var string
+     */
+    private string $name;
 
     /**
      * @param string $name

@@ -18,7 +18,7 @@ class UserRepository implements UserRepositoryInterface
     /**
      * @var EntityManagerInterface
      */
-    private $em;
+    private EntityManagerInterface $em;
     /**
      * @var EntityRepository
      */

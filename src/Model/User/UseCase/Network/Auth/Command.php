@@ -12,19 +12,19 @@ class Command
     /**
      * @var string
      */
-    public $network;
+    public string $network;
     /**
      * @var string
      */
-    public $identity;
+    public string $identity;
     /**
      * @var string
      */
-    public $firstName;
+    public string $firstName;
     /**
      * @var string
      */
-    public $lastName;
+    public string $lastName;
 
     /**
      * @param string $network

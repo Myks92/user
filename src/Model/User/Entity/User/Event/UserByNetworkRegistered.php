@@ -20,23 +20,23 @@ class UserByNetworkRegistered
     /**
      * @var Id
      */
-    public $id;
+    public Id $id;
     /**
      * @var DateTimeImmutable
      */
-    public $date;
+    public DateTimeImmutable $date;
     /**
      * @var Name
      */
-    public $name;
+    public Name $name;
     /**
      * @var string
      */
-    public $network;
+    public string $network;
     /**
      * @var string
      */
-    public $identity;
+    public string $identity;
 
     /**
      * @param Id $id

@@ -19,11 +19,11 @@ class UserRoleChanged
     /**
      * @var Id
      */
-    public $id;
+    public Id $id;
     /**
      * @var Role
      */
-    public $role;
+    public Role $role;
 
     /**
      * @param Id $id

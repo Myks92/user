@@ -19,11 +19,11 @@ class UserPasswordChanged
     /**
      * @var Id
      */
-    public $id;
+    public Id $id;
     /**
      * @var DateTimeImmutable
      */
-    public $date;
+    public DateTimeImmutable $date;
 
     /**
      * @param Id $id

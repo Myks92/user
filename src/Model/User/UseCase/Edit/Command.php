@@ -15,20 +15,23 @@ class Command
     /**
      * @Assert\NotBlank()
      */
-    public $id;
+    public string $id;
     /**
+     * @var string
      * @Assert\NotBlank()
      * @Assert\Email()
      */
-    public $email;
+    public string $email;
     /**
+     * @var string
      * @Assert\NotBlank()
      */
-    public $firstName;
+    public string $firstName;
     /**
+     * @var string
      * @Assert\NotBlank()
      */
-    public $lastName;
+    public string $lastName;
 
     /**
      * @param string $id

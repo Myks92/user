@@ -14,19 +14,18 @@ use Myks92\User\Model\User\Entity\User\User;
 
 class UserBuilder
 {
-    private $id;
-    private $date;
-    private $name;
+    private Id $id;
+    private DateTimeImmutable $date;
+    private Name $name;
+    private ?Email $email = null;
+    private string $hash;
+    private string $token;
+    private bool $confirmed = false;
 
-    private $email;
-    private $hash;
-    private $token;
-    private $confirmed;
+    private ?string $network = null;
+    private ?string $identity = null;
 
-    private $network;
-    private $identity;
-
-    private $role;
+    private ?Role $role = null;
 
     public function __construct()
     {

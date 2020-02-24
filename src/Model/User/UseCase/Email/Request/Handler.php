@@ -20,10 +20,22 @@ use Myks92\User\Model\User\Service\NewEmailConfirmTokenSenderInterface;
  */
 class Handler
 {
-    private $users;
-    private $tokenizer;
-    private $sender;
-    private $flusher;
+    /**
+     * @var UserRepositoryInterface
+     */
+    private UserRepositoryInterface $users;
+    /**
+     * @var NewEmailConfirmTokenizerInterface
+     */
+    private NewEmailConfirmTokenizerInterface $tokenizer;
+    /**
+     * @var NewEmailConfirmTokenSenderInterface
+     */
+    private NewEmailConfirmTokenSenderInterface $sender;
+    /**
+     * @var FlusherInterface
+     */
+    private FlusherInterface $flusher;
 
     /**
      * @param UserRepositoryInterface $users

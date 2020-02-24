@@ -17,10 +17,22 @@ use Myks92\User\Model\User\Service\ResetTokenSenderInterface;
  */
 class Handler
 {
-    private $users;
-    private $tokenizer;
-    private $flusher;
-    private $sender;
+    /**
+     * @var UserRepositoryInterface
+     */
+    private UserRepositoryInterface $users;
+    /**
+     * @var ResetTokenizer
+     */
+    private ResetTokenizer $tokenizer;
+    /**
+     * @var FlusherInterface
+     */
+    private FlusherInterface $flusher;
+    /**
+     * @var ResetTokenSenderInterface
+     */
+    private ResetTokenSenderInterface $sender;
 
     /**
      * @param UserRepositoryInterface $users

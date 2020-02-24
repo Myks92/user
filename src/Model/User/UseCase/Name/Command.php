@@ -16,17 +16,17 @@ class Command
      * @var string
      * @Assert\NotBlank()
      */
-    public $id;
+    public string $id;
     /**
      * @var string
      * @Assert\NotBlank()
      */
-    public $first;
+    public string $first;
     /**
      * @var string
      * @Assert\NotBlank()
      */
-    public $last;
+    public string $last;
 
     /**
      * @param string $id

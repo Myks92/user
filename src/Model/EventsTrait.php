@@ -14,7 +14,7 @@ trait EventsTrait
     /**
      * @var array
      */
-    private $recordedEvents = [];
+    private array $recordedEvents = [];
 
     /**
      * @return array

@@ -12,11 +12,11 @@ class Command
     /**
      * @var string
      */
-    public $id;
+    public string $id;
     /**
      * @var string
      */
-    public $token;
+    public string $token;
 
     /**
      * @param string $id

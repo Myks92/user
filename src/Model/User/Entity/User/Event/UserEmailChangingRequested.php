@@ -19,15 +19,15 @@ class UserEmailChangingRequested
     /**
      * @var Id
      */
-    public $id;
+    public Id $id;
     /**
      * @var Email
      */
-    public $email;
+    public Email $email;
     /**
      * @var string
      */
-    public $token;
+    public string $token;
 
     /**
      * @param Id $id

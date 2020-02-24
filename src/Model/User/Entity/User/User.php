@@ -47,57 +47,57 @@ class User implements AggregateRoot
      * @ORM\Column(type="user_user_id")
      * @ORM\Id
      */
-    private $id;
+    private Id $id;
     /**
      * @var DateTimeImmutable
      * @ORM\Column(type="datetime_immutable")
      */
-    private $date;
+    private DateTimeImmutable $date;
     /**
      * @var Email|null
      * @ORM\Column(type="user_user_email", nullable=true)
      */
-    private $email;
+    private ?Email $email = null;
     /**
      * @var string|null
      * @ORM\Column(type="string", name="password_hash", nullable=true)
      */
-    private $passwordHash;
+    private ?string $passwordHash = null;
     /**
      * @var string|null
      * @ORM\Column(type="string", name="confirm_token", nullable=true)
      */
-    private $confirmToken;
+    private ?string $confirmToken = null;
     /**
      * @var Name
      * @ORM\Embedded(class="Name")
      */
-    private $name;
+    private Name $name;
     /**
      * @var Email|null
      * @ORM\Column(type="user_user_email", name="new_email", nullable=true)
      */
-    private $newEmail;
+    private ?Email $newEmail = null;
     /**
      * @var string|null
      * @ORM\Column(type="string", name="new_email_token", nullable=true)
      */
-    private $newEmailToken;
+    private ?string $newEmailToken = null;
     /**
      * @var ResetToken|null
      * @ORM\Embedded(class="ResetToken", columnPrefix="reset_token_")
      */
-    private $resetToken;
+    private ?ResetToken $resetToken = null;
     /**
      * @var string
      * @ORM\Column(type="string", length=16)
      */
-    private $status;
+    private string $status;
     /**
      * @var Role
      * @ORM\Column(type="user_user_role", length=16)
      */
-    private $role;
+    private Role $role;
     /**
      * @var Network[]|ArrayCollection
      * @ORM\OneToMany(targetEntity="Network", mappedBy="user", orphanRemoval=true, cascade={"persist"})
@@ -107,7 +107,7 @@ class User implements AggregateRoot
      * @ORM\Version()
      * @ORM\Column(type="integer")
      */
-    private $version;
+    private int $version;
 
     /**
      * @param Id $id

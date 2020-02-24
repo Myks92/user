@@ -15,7 +15,10 @@ use Ramsey\Uuid\Uuid;
  */
 class ResetTokenizer
 {
-    private $interval;
+    /**
+     * @var DateInterval
+     */
+    private DateInterval $interval;
 
     /**
      * @param DateInterval $interval

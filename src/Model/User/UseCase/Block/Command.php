@@ -14,7 +14,7 @@ class Command
     /**
      * @Assert\NotBlank()
      */
-    public $id;
+    public string $id;
 
     /**
      * @param string $id

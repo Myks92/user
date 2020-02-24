@@ -10,7 +10,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 
 class SimpleEventDispatcher implements EventDispatcherInterface
 {
-    private $listeners;
+    private array $listeners;
 
     public function __construct(array $listeners)
     {

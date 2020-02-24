@@ -12,7 +12,7 @@ class Command
     /**
      * @var string
      */
-    public $id;
+    public string $id;
 
     /**
      * @param string $id

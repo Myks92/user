@@ -21,23 +21,23 @@ class UserByEmailRegistered
     /**
      * @var Id
      */
-    public $id;
+    public Id $id;
     /**
      * @var DateTimeImmutable
      */
-    public $date;
+    public DateTimeImmutable $date;
     /**
      * @var Name
      */
-    public $name;
+    public Name $name;
     /**
      * @var Email
      */
-    public $email;
+    public Email $email;
     /**
      * @var string
      */
-    public $token;
+    public string $token;
 
     /**
      * @param Id $id
