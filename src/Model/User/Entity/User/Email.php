@@ -12,7 +12,10 @@ use Webmozart\Assert\Assert;
  */
 class Email
 {
-    private $value;
+    /**
+     * @var string
+     */
+    private string $value;
 
     /**
      * @param string $value

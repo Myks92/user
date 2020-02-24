@@ -12,15 +12,15 @@ class Command
     /**
      * @var string
      */
-    public $user;
+    public string $user;
     /**
      * @var string
      */
-    public $network;
+    public string $network;
     /**
      * @var string
      */
-    public $identity;
+    public string $identity;
 
     /**
      * @param string $user

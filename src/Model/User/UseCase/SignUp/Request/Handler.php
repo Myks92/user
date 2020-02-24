@@ -24,11 +24,26 @@ use Myks92\User\Model\User\Service\SignUpConfirmTokenSenderInterface;
  */
 class Handler
 {
-    private $users;
-    private $hasher;
-    private $tokenizer;
-    private $sender;
-    private $flusher;
+    /**
+     * @var UserRepositoryInterface
+     */
+    private UserRepositoryInterface $users;
+    /**
+     * @var PasswordHasherInterface
+     */
+    private PasswordHasherInterface $hasher;
+    /**
+     * @var SignUpConfirmTokenizer
+     */
+    private SignUpConfirmTokenizer $tokenizer;
+    /**
+     * @var SignUpConfirmTokenSenderInterface
+     */
+    private SignUpConfirmTokenSenderInterface $sender;
+    /**
+     * @var FlusherInterface
+     */
+    private FlusherInterface $flusher;
 
     /**
      * @param UserRepositoryInterface $users

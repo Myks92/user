@@ -20,15 +20,15 @@ class UserEdited
     /**
      * @var Id
      */
-    public $id;
+    public Id $id;
     /**
      * @var Name
      */
-    public $name;
+    public Name $name;
     /**
      * @var Email
      */
-    public $email;
+    public Email $email;
 
     /**
      * @param Id $id

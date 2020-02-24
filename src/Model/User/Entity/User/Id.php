@@ -13,7 +13,10 @@ use Webmozart\Assert\Assert;
  */
 class Id
 {
-    private $value;
+    /**
+     * @var string
+     */
+    private string $value;
 
     /**
      * @param string $value

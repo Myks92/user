@@ -18,11 +18,11 @@ class UserRegisterConfirmed
     /**
      * @var Id
      */
-    public $id;
+    public Id $id;
     /**
      * @var string
      */
-    public $status;
+    public string $status;
 
     /**
      * @param Id $id

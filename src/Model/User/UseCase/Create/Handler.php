@@ -21,10 +21,22 @@ use Myks92\User\Model\User\Service\PasswordHasherInterface;
  */
 class Handler
 {
-    private $users;
-    private $hasher;
-    private $generator;
-    private $flusher;
+    /**
+     * @var UserRepositoryInterface
+     */
+    private UserRepositoryInterface $users;
+    /**
+     * @var PasswordHasherInterface
+     */
+    private PasswordHasherInterface $hasher;
+    /**
+     * @var PasswordGeneratorInterface
+     */
+    private PasswordGeneratorInterface $generator;
+    /**
+     * @var FlusherInterface
+     */
+    private FlusherInterface $flusher;
 
     /**
      * @param UserRepositoryInterface $users

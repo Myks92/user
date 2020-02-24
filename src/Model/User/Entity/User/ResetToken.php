@@ -16,11 +16,11 @@ class ResetToken
     /**
      * @ORM\Column(type="string", nullable=true)
      */
-    private $token;
+    private string $token;
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
-    private $expires;
+    private DateTimeImmutable $expires;
 
     /**
      * @param string $token

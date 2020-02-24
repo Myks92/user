@@ -12,7 +12,7 @@ class Command
     /**
      * @var string
      */
-    public $token;
+    public string $token;
 
     /**
      * @param string $token

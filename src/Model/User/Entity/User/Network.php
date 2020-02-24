@@ -21,23 +21,23 @@ class Network
      * @ORM\Column(type="guid")
      * @ORM\Id
      */
-    private $id;
+    private string $id;
     /**
      * @var User
      * @ORM\ManyToOne(targetEntity="User", inversedBy="networks")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    private $user;
+    private User $user;
     /**
      * @var string
      * @ORM\Column(type="string", length=32, nullable=true)
      */
-    private $network;
+    private string $network;
     /**
      * @var string
      * @ORM\Column(type="string", length=32, nullable=true)
      */
-    private $identity;
+    private string $identity;
 
     /**
      * @param User $user

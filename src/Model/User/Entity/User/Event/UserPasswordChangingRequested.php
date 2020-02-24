@@ -20,15 +20,15 @@ class UserPasswordChangingRequested
     /**
      * @var Id
      */
-    public $id;
+    public Id $id;
     /**
      * @var ResetToken
      */
-    public $token;
+    public ResetToken $token;
     /**
      * @var DateTimeImmutable|DateTimeImmutable
      */
-    public $date;
+    public DateTimeImmutable $date;
 
     /**
      * @param Id $id

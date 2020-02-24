@@ -16,12 +16,12 @@ class Name
      * @var string
      * @ORM\Column(type="string")
      */
-    private $first;
+    private string $first;
     /**
      * @var string
      * @ORM\Column(type="string")
      */
-    private $last;
+    private string $last;
 
     /**
      * @param string $first

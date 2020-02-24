@@ -15,11 +15,11 @@ class Flusher implements FlusherInterface
     /**
      * @var EntityManagerInterface
      */
-    private $em;
+    private EntityManagerInterface $em;
     /**
      * @var EventDispatcherInterface
      */
-    private $dispatcher;
+    private EventDispatcherInterface $dispatcher;
 
     /**
      * @param EntityManagerInterface $em

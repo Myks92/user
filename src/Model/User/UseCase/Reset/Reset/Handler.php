@@ -16,9 +16,18 @@ use Myks92\User\Model\User\Service\PasswordHasherInterface;
  */
 class Handler
 {
-    private $users;
-    private $hasher;
-    private $flusher;
+    /**
+     * @var UserRepositoryInterface
+     */
+    private UserRepositoryInterface $users;
+    /**
+     * @var PasswordHasherInterface
+     */
+    private PasswordHasherInterface $hasher;
+    /**
+     * @var FlusherInterface
+     */
+    private FlusherInterface $flusher;
 
     /**
      * @param UserRepositoryInterface $users

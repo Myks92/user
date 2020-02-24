@@ -18,15 +18,15 @@ class UserNetworkDetached
     /**
      * @var Id
      */
-    public $id;
+    public Id $id;
     /**
      * @var string
      */
-    public $network;
+    public string $network;
     /**
      * @var string
      */
-    public $identity;
+    public string $identity;
 
     /**
      * @param Id $id

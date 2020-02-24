@@ -19,11 +19,11 @@ class UserEmailChanged
     /**
      * @var Id
      */
-    public $id;
+    public Id $id;
     /**
      * @var Email
      */
-    public $email;
+    public Email $email;
 
     /**
      * @param Id $id

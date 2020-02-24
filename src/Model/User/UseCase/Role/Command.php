@@ -16,12 +16,12 @@ class Command
      * @var string
      * @Assert\NotBlank()
      */
-    public $id;
+    public string $id;
     /**
      * @var string
      * @Assert\NotBlank()
      */
-    public $role;
+    public string $role;
 
     /**
      * @param string $id
