@@ -69,10 +69,10 @@ class RequestTest extends TestCase
 
     public function testNotActive(): void
     {
-        $now = new DateTimeImmutable();
-        $token = $this->createToken($now->modify('+1 day'));
-
         $user = (new UserBuilder())->build();
+
+        $now = new DateTimeImmutable();
+        $token = $this->createToken($now->modify('+1 hour'));
 
         $this->expectExceptionMessage('User is not active.');
         $user->requestPasswordReset($token, $now);

@@ -7,6 +7,7 @@ namespace Myks92\User\Model\User\Entity\User\Event;
 
 
 use Myks92\User\Model\User\Entity\User\Id;
+use Myks92\User\Model\User\Entity\User\Status;
 
 /**
  * Event User Register Confirmed
@@ -20,15 +21,15 @@ class UserRegisterConfirmed
      */
     public Id $id;
     /**
-     * @var string
+     * @var Status
      */
-    public string $status;
+    public Status $status;
 
     /**
      * @param Id $id
-     * @param string $status
+     * @param Status $status
      */
-    public function __construct(Id $id, string $status)
+    public function __construct(Id $id, Status $status)
     {
         $this->id = $id;
         $this->status = $status;

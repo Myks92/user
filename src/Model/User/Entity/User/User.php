@@ -39,10 +39,6 @@ class User implements AggregateRoot
 {
     use EventsTrait;
 
-    public const STATUS_WAIT = 'wait';
-    public const STATUS_ACTIVE = 'active';
-    public const STATUS_BLOCKED = 'blocked';
-
     /**
      * @ORM\Column(type="user_user_id")
      * @ORM\Id
@@ -89,10 +85,10 @@ class User implements AggregateRoot
      */
     private ?Token $resetToken = null;
     /**
-     * @var string
-     * @ORM\Column(type="string", length=16)
+     * @var Status
+     * @ORM\Column(type="user_user_status", length=16)
      */
-    private string $status;
+    private Status $status;
     /**
      * @var Role
      * @ORM\Column(type="user_user_role", length=16)
@@ -113,12 +109,14 @@ class User implements AggregateRoot
      * @param Id $id
      * @param DateTimeImmutable $date
      * @param Name $name
+     * @param Status $status
      */
-    private function __construct(Id $id, DateTimeImmutable $date, Name $name)
+    private function __construct(Id $id, DateTimeImmutable $date, Name $name, Status $status)
     {
         $this->id = $id;
         $this->date = $date;
         $this->name = $name;
+        $this->status = $status;
         $this->role = Role::user();
         $this->networks = new ArrayCollection();
     }
@@ -134,10 +132,9 @@ class User implements AggregateRoot
      */
     public static function create(Id $id, DateTimeImmutable $date, Name $name, Email $email, string $hash): self
     {
-        $user = new self($id, $date, $name);
+        $user = new self($id, $date, $name, Status::active());
         $user->email = $email;
         $user->passwordHash = $hash;
-        $user->status = self::STATUS_ACTIVE;
         $user->recordEvent(new UserCreated($id, $date, $name, $email));
         return $user;
     }
@@ -160,11 +157,10 @@ class User implements AggregateRoot
         string $hash,
         Token $token
     ): self {
-        $user = new self($id, $date, $name);
+        $user = new self($id, $date, $name, Status::wait());
         $user->email = $email;
         $user->passwordHash = $hash;
         $user->confirmToken = $token;
-        $user->status = self::STATUS_WAIT;
         $user->recordEvent(new UserByEmailRegistered($id, $date, $name, $email, $token));
         return $user;
     }
@@ -186,9 +182,8 @@ class User implements AggregateRoot
         string $network,
         string $identity
     ): self {
-        $user = new self($id, $date, $name);
+        $user = new self($id, $date, $name, Status::active());
         $user->attachNetwork($network, $identity);
-        $user->status = self::STATUS_ACTIVE;
         $user->recordEvent(new UserByNetworkRegistered($id, $date, $name, $network, $identity));
         return $user;
     }
@@ -216,7 +211,7 @@ class User implements AggregateRoot
             throw new DomainException('Confirmation is not required.');
         }
         $this->confirmToken->validate($token, $date);
-        $this->status = self::STATUS_ACTIVE;
+        $this->status = Status::active();
         $this->confirmToken = null;
         $this->recordEvent(new UserRegisterConfirmed($this->id, $this->status));
     }
@@ -349,7 +344,7 @@ class User implements AggregateRoot
         if ($this->isActive()) {
             throw new DomainException('User is already active.');
         }
-        $this->status = self::STATUS_ACTIVE;
+        $this->status = Status::active();
         $this->recordEvent(new UserActivated($this->id, $this->status));
     }
 
@@ -358,7 +353,7 @@ class User implements AggregateRoot
         if ($this->isBlocked()) {
             throw new DomainException('User is already blocked.');
         }
-        $this->status = self::STATUS_BLOCKED;
+        $this->status = Status::blocked();
         $this->recordEvent(new UserBlocked($this->id, $this->status));
     }
 
@@ -367,7 +362,7 @@ class User implements AggregateRoot
      */
     public function isWait(): bool
     {
-        return $this->status === self::STATUS_WAIT;
+        return $this->status->isWait();
     }
 
     /**
@@ -375,7 +370,7 @@ class User implements AggregateRoot
      */
     public function isActive(): bool
     {
-        return $this->status === self::STATUS_ACTIVE;
+        return $this->status->isActive();
     }
 
     /**
@@ -383,7 +378,7 @@ class User implements AggregateRoot
      */
     public function isBlocked(): bool
     {
-        return $this->status === self::STATUS_BLOCKED;
+        return $this->status->isBlocked();
     }
 
     /**
@@ -467,9 +462,9 @@ class User implements AggregateRoot
     }
 
     /**
-     * @return string
+     * @return Status
      */
-    public function getStatus(): string
+    public function getStatus(): Status
     {
         return $this->status;
     }
