@@ -20,11 +20,11 @@ class ResetTest extends TestCase
         $token = $this->createToken($now->modify('+1 hour'));
         $user->requestPasswordReset($token, $now);
 
-        self::assertNotNull($user->getResetToken());
+        self::assertNotNull($user->getPasswordResetToken());
 
         $user->resetPassword($token->getValue(), $now, $hash = 'hash');
 
-        self::assertNull($user->getResetToken());
+        self::assertNull($user->getPasswordResetToken());
         self::assertEquals($hash, $user->getPasswordHash());
     }
 

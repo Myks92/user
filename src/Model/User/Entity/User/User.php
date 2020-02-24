@@ -81,9 +81,9 @@ class User implements AggregateRoot
     private ?Token $newEmailToken = null;
     /**
      * @var Token|null
-     * @ORM\Embedded(class="Token", columnPrefix="reset_token_")
+     * @ORM\Embedded(class="Token", columnPrefix="password_reset_token_")
      */
-    private ?Token $resetToken = null;
+    private ?Token $passwordResetToken = null;
     /**
      * @var Status
      * @ORM\Column(type="user_user_status", length=16)
@@ -247,10 +247,10 @@ class User implements AggregateRoot
         if ($this->email === null) {
             throw new DomainException('Email is not specified.');
         }
-        if ($this->resetToken !== null && !$this->resetToken->isExpiredTo($date)) {
+        if ($this->passwordResetToken !== null && !$this->passwordResetToken->isExpiredTo($date)) {
             throw new DomainException('Resetting is already requested.');
         }
-        $this->resetToken = $token;
+        $this->passwordResetToken = $token;
         $this->recordEvent(new UserPasswordChangingRequested($this->id, $token, $date));
     }
 
@@ -261,12 +261,12 @@ class User implements AggregateRoot
      */
     public function resetPassword(string $token, DateTimeImmutable $date, string $hash): void
     {
-        if ($this->resetToken === null) {
+        if ($this->passwordResetToken === null) {
             throw new DomainException('Resetting is not requested.');
         }
-        $this->resetToken->validate($token, $date);
+        $this->passwordResetToken->validate($token, $date);
         $this->passwordHash = $hash;
-        $this->resetToken = null;
+        $this->passwordResetToken = null;
         $this->recordEvent(new UserPasswordResetted($this->id, $date));
     }
 
@@ -448,9 +448,9 @@ class User implements AggregateRoot
     /**
      * @return Token|null
      */
-    public function getResetToken(): ?Token
+    public function getPasswordResetToken(): ?Token
     {
-        return $this->resetToken;
+        return $this->passwordResetToken;
     }
 
     /**
@@ -482,8 +482,8 @@ class User implements AggregateRoot
      */
     public function checkEmbeds(): void
     {
-        if ($this->resetToken->isEmpty()) {
-            $this->resetToken = null;
+        if ($this->passwordResetToken->isEmpty()) {
+            $this->passwordResetToken = null;
         }
     }
 }

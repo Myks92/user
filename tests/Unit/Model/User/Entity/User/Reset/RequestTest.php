@@ -21,7 +21,7 @@ class RequestTest extends TestCase
 
         $user->requestPasswordReset($token, $now);
 
-        self::assertNotNull($user->getResetToken());
+        self::assertNotNull($user->getPasswordResetToken());
     }
 
     public function testAlready(): void
@@ -45,13 +45,13 @@ class RequestTest extends TestCase
         $token = $this->createToken($now->modify('+1 hour'));
         $user->requestPasswordReset($token, $now);
 
-        self::assertEquals($token, $user->getResetToken());
+        self::assertEquals($token, $user->getPasswordResetToken());
 
         $newDate = $now->modify('+2 hours');
         $newToken = $this->createToken($newDate->modify('+1 hour'));
         $user->requestPasswordReset($newToken, $newDate);
 
-        self::assertEquals($newToken, $user->getResetToken());
+        self::assertEquals($newToken, $user->getPasswordResetToken());
     }
 
     public function testNotConfirmed(): void
