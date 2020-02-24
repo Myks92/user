@@ -22,8 +22,8 @@ use Myks92\User\Model\User\Entity\User\Event\UserEmailChangingRequested;
 use Myks92\User\Model\User\Entity\User\Event\UserNameChanged;
 use Myks92\User\Model\User\Entity\User\Event\UserNetworkAttached;
 use Myks92\User\Model\User\Entity\User\Event\UserNetworkDetached;
-use Myks92\User\Model\User\Entity\User\Event\UserPasswordChanged;
 use Myks92\User\Model\User\Entity\User\Event\UserPasswordChangingRequested;
+use Myks92\User\Model\User\Entity\User\Event\UserPasswordResetted;
 use Myks92\User\Model\User\Entity\User\Event\UserRegisterConfirmed;
 use Myks92\User\Model\User\Entity\User\Event\UserRoleChanged;
 
@@ -267,7 +267,7 @@ class User implements AggregateRoot
         $this->resetToken->validate($token, $date);
         $this->passwordHash = $hash;
         $this->resetToken = null;
-        $this->recordEvent(new UserPasswordChanged($this->id, $date));
+        $this->recordEvent(new UserPasswordResetted($this->id, $date));
     }
 
     /**

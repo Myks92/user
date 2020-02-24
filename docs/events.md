@@ -27,7 +27,6 @@ $event = new UserCreated(...);
 $dispatcher->dispatch($event);
 ```
 
-
 ## List events
 
 ### UserActivated
@@ -63,8 +62,8 @@ Triggered when a user network attached
 ### UserNetworkDetached
 Triggered when a user network detached
 
-### UserPasswordChanged
-Triggered when a user password changed
+### UserPasswordResetted
+Triggered when a user password reset
 
 ### UserPasswordChangingRequested
 Triggered when a user password change requested

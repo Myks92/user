@@ -10,11 +10,11 @@ use DateTimeImmutable;
 use Myks92\User\Model\User\Entity\User\Id;
 
 /**
- * Event User Password Changed
+ * Event User Password Resetted
  *
  * @author Maxim Vorozhtsov <myks1992@mail.ru>
  */
-class UserPasswordChanged
+class UserPasswordResetted
 {
     /**
      * @var Id
