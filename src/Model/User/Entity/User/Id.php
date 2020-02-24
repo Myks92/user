@@ -23,15 +23,15 @@ class Id
      */
     public function __construct(string $value)
     {
-        Assert::notEmpty($value);
-        $this->value = $value;
+        Assert::uuid($value);
+        $this->value = mb_strtolower($value);
     }
 
     /**
      * @return static
      * @throws Exception
      */
-    public static function next(): self
+    public static function generate(): self
     {
         return new self(Uuid::uuid4()->toString());
     }

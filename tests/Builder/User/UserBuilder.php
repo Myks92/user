@@ -30,7 +30,7 @@ class UserBuilder
 
     public function __construct()
     {
-        $this->id = Id::next();
+        $this->id = Id::generate();
         $this->email = new Email('mail@app.test');
         $this->name = new Name('First', 'Last');
         $this->hash = 'hash';

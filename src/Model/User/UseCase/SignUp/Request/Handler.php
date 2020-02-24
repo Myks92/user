@@ -84,7 +84,7 @@ class Handler
         $date = new DateTimeImmutable();
 
         $user = User::signUpByEmail(
-            Id::next(),
+            Id::generate(),
             new DateTimeImmutable(),
             new Name($command->firstName, $command->lastName),
             $email,

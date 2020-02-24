@@ -49,7 +49,7 @@ class Handler
         }
 
         $user = User::signUpByNetwork(
-            Id::next(),
+            Id::generate(),
             new DateTimeImmutable(),
             new Name($command->firstName, $command->lastName),
             $command->network,
