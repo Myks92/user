@@ -1,3 +1,7 @@
+## 1.2.1 (2020-02-24)
+
+* Add documentation on the use of events
+
 ## 1.2.0 (2020-02-22)
 
 * Extract interfaces for Flusher.php and PasswordGenerator.php, refactor
