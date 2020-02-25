@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Myks92\User\Tests\Unit\Model\User\Entity\User\SignUp;
+namespace Myks92\User\Tests\Unit\Model\User\Entity\User\User\SignUpByEmail;
 
 use DateTimeImmutable;
 use Myks92\User\Model\User\Entity\User\Email;

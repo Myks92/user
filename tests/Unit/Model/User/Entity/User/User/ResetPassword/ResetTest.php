@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Myks92\User\Tests\Unit\Model\User\Entity\User\Reset;
+namespace Myks92\User\Tests\Unit\Model\User\Entity\User\User\ResetPassword;
 
 use DateTimeImmutable;
 use Myks92\User\Model\User\Entity\User\Token;
