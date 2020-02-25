@@ -12,6 +12,7 @@ env:
     - PREFER_LOWEST=""
 
 before_script:
+  - composer self-update
   - composer update $PREFER_LOWEST
 
 # cache vendor dirs
