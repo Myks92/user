@@ -55,7 +55,7 @@ class Handler
             throw new DomainException('Token is not found.');
         }
 
-        $user->resetPassword($command->token, new DateTimeImmutable(), $this->hasher->hash($command->password));
+        $user->confirmPasswordReset($command->token, new DateTimeImmutable(), $this->hasher->hash($command->password));
 
         $this->flusher->flush();
     }

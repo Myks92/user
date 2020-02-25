@@ -259,7 +259,7 @@ class User implements AggregateRoot
      * @param DateTimeImmutable $date
      * @param string $hash
      */
-    public function resetPassword(string $token, DateTimeImmutable $date, string $hash): void
+    public function confirmPasswordReset(string $token, DateTimeImmutable $date, string $hash): void
     {
         if ($this->passwordResetToken === null) {
             throw new DomainException('Resetting is not requested.');
