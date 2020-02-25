@@ -202,3 +202,17 @@ $command = new ByManual\Command($userId);
 
 $handler->handle($command);
 ```
+
+## Removed
+
+```php
+use Myks92\User\Model\User\Command\Remove;
+
+$userId = '00000000-0000-0000-0000-000000000001'; //UUID
+
+$handler = new Remove\Handler($users,$flusher);
+
+$command = new Remove\Command($userId);
+
+$handler->handle($command);
+```

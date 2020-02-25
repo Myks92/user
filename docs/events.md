@@ -73,3 +73,6 @@ Triggered when a user registration confirmed
 
 ### UserRoleChanged
 Triggered when a user role changed
+
+### UserRemoved
+Triggered when a user removed

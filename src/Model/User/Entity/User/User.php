@@ -25,6 +25,7 @@ use Myks92\User\Model\User\Entity\User\Event\UserNetworkDetached;
 use Myks92\User\Model\User\Entity\User\Event\UserPasswordChangingRequested;
 use Myks92\User\Model\User\Entity\User\Event\UserPasswordResetted;
 use Myks92\User\Model\User\Entity\User\Event\UserRegisterConfirmed;
+use Myks92\User\Model\User\Entity\User\Event\UserRemoved;
 use Myks92\User\Model\User\Entity\User\Event\UserRoleChanged;
 
 /**
@@ -355,6 +356,14 @@ class User implements AggregateRoot
         }
         $this->status = Status::blocked();
         $this->recordEvent(new UserBlocked($this->id, $this->status));
+    }
+
+    public function remove(): void
+    {
+        if (!$this->isWait()) {
+            throw new DomainException('Unable to remove active user.');
+        }
+        $this->recordEvent(new UserRemoved($this->id));
     }
 
     /**

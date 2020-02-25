@@ -69,4 +69,9 @@ interface UserRepositoryInterface
      * @param User $user
      */
     public function add(User $user): void;
+
+    /**
+     * @param User $user
+     */
+    public function remove(User $user): void;
 }

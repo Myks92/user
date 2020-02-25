@@ -107,12 +107,10 @@ class UserRepository implements UserRepositoryInterface
      */
     public function hasByNetworkIdentity(string $network, string $identity): bool
     {
-        return $this->repo->createQueryBuilder('t')
-                ->select('COUNT(t.id)')
-                ->innerJoin('t.networks', 'n')
-                ->andWhere('n.network = :network and n.identity = :identity')
-                ->setParameter(':network', $network)->setParameter(':identity', $identity)
-                ->getQuery()->getSingleScalarResult() > 0;
+        return $this->repo->createQueryBuilder('t')->select('COUNT(t.id)')->innerJoin('t.networks', 'n')->andWhere(
+                    'n.network = :network and n.identity = :identity'
+                )->setParameter(':network', $network)->setParameter(':identity', $identity)->getQuery(
+                )->getSingleScalarResult() > 0;
     }
 
     /**
@@ -121,5 +119,13 @@ class UserRepository implements UserRepositoryInterface
     public function add(User $user): void
     {
         $this->em->persist($user);
+    }
+
+    /**
+     * @param User $user
+     */
+    public function remove(User $user): void
+    {
+        $this->em->remove($user);
     }
 }
