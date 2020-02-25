@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Myks92\User\Tests\Unit\Model\User\Entity\User\User\SignUpByEmail;
+namespace Myks92\User\Tests\Unit\Model\User\Entity\User\User\JoinByEmail;
 
 use DateTimeImmutable;
 use Myks92\User\Model\User\Entity\User\Email;
@@ -18,7 +18,7 @@ class RequestTest extends TestCase
 {
     public function testSuccess(): void
     {
-        $user = User::signUpByEmail(
+        $user = User::joinByEmail(
             $id = Id::generate(),
             $date = new DateTimeImmutable(),
             $name = new Name('First', 'Last'),
@@ -32,7 +32,7 @@ class RequestTest extends TestCase
         self::assertEquals($name, $user->getName());
         self::assertEquals($email, $user->getEmail());
         self::assertEquals($hash, $user->getPasswordHash());
-        self::assertEquals($token, $user->getConfirmToken());
+        self::assertEquals($token, $user->getJoinConfirmToken());
 
         self::assertTrue($user->isWait());
         self::assertFalse($user->isActive());

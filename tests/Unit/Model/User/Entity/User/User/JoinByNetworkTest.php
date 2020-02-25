@@ -11,11 +11,11 @@ use Myks92\User\Model\User\Entity\User\Network;
 use Myks92\User\Model\User\Entity\User\User;
 use PHPUnit\Framework\TestCase;
 
-class SignUpByNetworkTest extends TestCase
+class JoinByNetworkTest extends TestCase
 {
     public function testSuccess(): void
     {
-        $user = User::signUpByNetwork(
+        $user = User::joinByNetwork(
             $id = Id::generate(),
             $date = new DateTimeImmutable(),
             $name = new Name('First', 'Last'),

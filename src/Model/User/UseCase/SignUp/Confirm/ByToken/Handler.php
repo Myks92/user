@@ -46,7 +46,7 @@ class Handler
         }
 
         $date = new DateTimeImmutable();
-        $user->confirmSignUp($command->token, $date);
+        $user->confirmJoin($command->token, $date);
 
         $this->flusher->flush();
     }

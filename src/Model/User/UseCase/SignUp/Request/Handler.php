@@ -15,8 +15,8 @@ use Myks92\User\Model\User\Entity\User\Id;
 use Myks92\User\Model\User\Entity\User\Name;
 use Myks92\User\Model\User\Entity\User\User;
 use Myks92\User\Model\User\Entity\User\UserRepositoryInterface;
+use Myks92\User\Model\User\Service\JoinConfirmTokenSenderInterface;
 use Myks92\User\Model\User\Service\PasswordHasherInterface;
-use Myks92\User\Model\User\Service\SignUpConfirmTokenSenderInterface;
 use Myks92\User\Model\User\Service\TokenizerInterface;
 
 /**
@@ -37,9 +37,9 @@ class Handler
      */
     private TokenizerInterface $tokenizer;
     /**
-     * @var SignUpConfirmTokenSenderInterface
+     * @var JoinConfirmTokenSenderInterface
      */
-    private SignUpConfirmTokenSenderInterface $sender;
+    private JoinConfirmTokenSenderInterface $sender;
     /**
      * @var FlusherInterface
      */
@@ -49,14 +49,14 @@ class Handler
      * @param UserRepositoryInterface $users
      * @param PasswordHasherInterface $hasher
      * @param TokenizerInterface $tokenizer
-     * @param SignUpConfirmTokenSenderInterface $sender
+     * @param JoinConfirmTokenSenderInterface $sender
      * @param FlusherInterface $flusher
      */
     public function __construct(
         UserRepositoryInterface $users,
         PasswordHasherInterface $hasher,
         TokenizerInterface $tokenizer,
-        SignUpConfirmTokenSenderInterface $sender,
+        JoinConfirmTokenSenderInterface $sender,
         FlusherInterface $flusher
     ) {
         $this->users = $users;
@@ -83,7 +83,7 @@ class Handler
 
         $date = new DateTimeImmutable();
 
-        $user = User::signUpByEmail(
+        $user = User::joinByEmail(
             Id::generate(),
             new DateTimeImmutable(),
             new Name($command->firstName, $command->lastName),

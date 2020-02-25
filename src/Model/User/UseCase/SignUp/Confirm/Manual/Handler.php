@@ -45,8 +45,8 @@ class Handler
 
         $date = new DateTimeImmutable();
 
-        $user->confirmSignUp(
-            $user->getConfirmToken()->getValue(),
+        $user->confirmJoin(
+            $user->getJoinConfirmToken()->getValue(),
             $date
         );
 

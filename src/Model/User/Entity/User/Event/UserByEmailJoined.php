@@ -17,7 +17,7 @@ use Myks92\User\Model\User\Entity\User\Token;
  *
  * @author Maxim Vorozhtsov <myks1992@mail.ru>
  */
-class UserByEmailRegistered
+class UserByEmailJoined
 {
     /**
      * @var Id

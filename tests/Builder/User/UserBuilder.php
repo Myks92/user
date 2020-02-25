@@ -91,7 +91,7 @@ class UserBuilder
     public function build(): User
     {
         if ($this->network) {
-            return User::signUpByNetwork(
+            return User::joinByNetwork(
                 $this->id,
                 $this->date,
                 $this->name,
@@ -100,7 +100,7 @@ class UserBuilder
             );
         }
 
-        $user = User::signUpByEmail(
+        $user = User::joinByEmail(
             $this->id,
             $this->date,
             $this->name,
@@ -110,7 +110,7 @@ class UserBuilder
         );
 
         if ($this->active) {
-            $user->confirmSignUp(
+            $user->confirmJoin(
                 $this->joinConfirmToken->getValue(),
                 $this->joinConfirmToken->getExpires()->modify('-1 day')
             );

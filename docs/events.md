@@ -35,11 +35,11 @@ Triggered when a user activated
 ### UserBlocked
 Triggered when a user blocked
 
-### UserByEmailRegistered
-Triggered when a user registered by email
+### UserByEmailJoined
+Triggered when a user join by email
 
-### UserByNetworkRegistered
-Triggered when a user by network registered
+### UserByNetworkJoined
+Triggered when a user join by network
 
 #### UserCreated
 Triggered when a user created

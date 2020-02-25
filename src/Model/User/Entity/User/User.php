@@ -13,8 +13,8 @@ use Myks92\User\Model\AggregateRoot;
 use Myks92\User\Model\EventsTrait;
 use Myks92\User\Model\User\Entity\User\Event\UserActivated;
 use Myks92\User\Model\User\Entity\User\Event\UserBlocked;
-use Myks92\User\Model\User\Entity\User\Event\UserByEmailRegistered;
-use Myks92\User\Model\User\Entity\User\Event\UserByNetworkRegistered;
+use Myks92\User\Model\User\Entity\User\Event\UserByEmailJoined;
+use Myks92\User\Model\User\Entity\User\Event\UserByNetworkJoined;
 use Myks92\User\Model\User\Entity\User\Event\UserCreated;
 use Myks92\User\Model\User\Entity\User\Event\UserEdited;
 use Myks92\User\Model\User\Entity\User\Event\UserEmailChanged;
@@ -61,9 +61,9 @@ class User implements AggregateRoot
     private ?string $passwordHash = null;
     /**
      * @var Token|null
-     * @ORM\Embedded(class="Token", columnPrefix="confirm_token_")
+     * @ORM\Embedded(class="Token", columnPrefix="join_confirm_token_")
      */
-    private ?Token $confirmToken = null;
+    private ?Token $joinConfirmToken = null;
     /**
      * @var Name
      * @ORM\Embedded(class="Name")
@@ -149,7 +149,7 @@ class User implements AggregateRoot
      *
      * @return static
      */
-    public static function signUpByEmail(
+    public static function joinByEmail(
         Id $id,
         DateTimeImmutable $date,
         Name $name,
@@ -160,8 +160,8 @@ class User implements AggregateRoot
         $user = new self($id, $date, $name, Status::wait());
         $user->email = $email;
         $user->passwordHash = $hash;
-        $user->confirmToken = $token;
-        $user->recordEvent(new UserByEmailRegistered($id, $date, $name, $email, $token));
+        $user->joinConfirmToken = $token;
+        $user->recordEvent(new UserByEmailJoined($id, $date, $name, $email, $token));
         return $user;
     }
 
@@ -175,7 +175,7 @@ class User implements AggregateRoot
      * @return static
      * @throws Exception
      */
-    public static function signUpByNetwork(
+    public static function joinByNetwork(
         Id $id,
         DateTimeImmutable $date,
         Name $name,
@@ -184,7 +184,7 @@ class User implements AggregateRoot
     ): self {
         $user = new self($id, $date, $name, Status::active());
         $user->attachNetwork($network, $identity);
-        $user->recordEvent(new UserByNetworkRegistered($id, $date, $name, $network, $identity));
+        $user->recordEvent(new UserByNetworkJoined($id, $date, $name, $network, $identity));
         return $user;
     }
 
@@ -205,14 +205,14 @@ class User implements AggregateRoot
         $this->recordEvent(new UserNetworkAttached($this->id, $network, $identity));
     }
 
-    public function confirmSignUp(string $token, DateTimeImmutable $date): void
+    public function confirmJoin(string $token, DateTimeImmutable $date): void
     {
-        if ($this->confirmToken === null) {
+        if ($this->joinConfirmToken === null) {
             throw new DomainException('Confirmation is not required.');
         }
-        $this->confirmToken->validate($token, $date);
+        $this->joinConfirmToken->validate($token, $date);
         $this->status = Status::active();
-        $this->confirmToken = null;
+        $this->joinConfirmToken = null;
         $this->recordEvent(new UserRegisterConfirmed($this->id, $this->status));
     }
 
@@ -416,9 +416,9 @@ class User implements AggregateRoot
     /**
      * @return Token|null
      */
-    public function getConfirmToken(): ?Token
+    public function getJoinConfirmToken(): ?Token
     {
-        return $this->confirmToken;
+        return $this->joinConfirmToken;
     }
 
     /**

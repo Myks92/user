@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Myks92\User\Tests\Unit\Model\User\Entity\User\User\SignUpByEmail;
+namespace Myks92\User\Tests\Unit\Model\User\Entity\User\User\JoinByEmail;
 
 use DateTimeImmutable;
 use Myks92\User\Model\User\Entity\User\Token;
@@ -19,12 +19,12 @@ class ConfirmTest extends TestCase
         $user = (new UserBuilder())->withJoinConfirmToken($token)->build();
 
         $date = new DateTimeImmutable();
-        $user->confirmSignUp($token->getValue(), $date);
+        $user->confirmJoin($token->getValue(), $date);
 
         self::assertFalse($user->isWait());
         self::assertTrue($user->isActive());
 
-        self::assertNull($user->getConfirmToken());
+        self::assertNull($user->getJoinConfirmToken());
     }
 
     public function testAlready(): void
@@ -35,7 +35,7 @@ class ConfirmTest extends TestCase
 
         $this->expectExceptionMessage('Confirmation is not required.');
 
-        $user->confirmSignUp(
+        $user->confirmJoin(
             $token->getValue(),
             $token->getExpires()->modify('-1 day')
         );

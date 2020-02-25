@@ -10,7 +10,7 @@ use Myks92\User\Model\User\Entity\User\Token;
 /**
  * @author Maxim Vorozhtsov <myks1992@mail.ru>
  */
-interface SignUpConfirmTokenSenderInterface
+interface JoinConfirmTokenSenderInterface
 {
     /**
      * @param Email $email

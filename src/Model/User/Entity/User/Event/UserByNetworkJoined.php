@@ -15,7 +15,7 @@ use Myks92\User\Model\User\Entity\User\Name;
  *
  * @author Maxim Vorozhtsov <myks1992@mail.ru>
  */
-class UserByNetworkRegistered
+class UserByNetworkJoined
 {
     /**
      * @var Id
