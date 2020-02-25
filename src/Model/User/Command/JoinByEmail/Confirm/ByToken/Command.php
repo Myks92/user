@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Myks92\User\Model\User\Command\JoinByEmail\Confirm\ByToken;
 
+
 /**
  * @author Maxim Vorozhtsov <myks1992@mail.ru>
  */

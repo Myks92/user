@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Myks92\User\Model\User\Command\DetachNetwork;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @author Maxim Vorozhtsov <myks1992@mail.ru>
  */
@@ -11,14 +13,17 @@ class Command
 {
     /**
      * @var string
+     * @Assert\NotBlank()
      */
     public string $user;
     /**
      * @var string
+     * @Assert\NotBlank()
      */
     public string $network;
     /**
      * @var string
+     * @Assert\NotBlank()
      */
     public string $identity;
 
