@@ -83,7 +83,7 @@ class Handler
 
         $date = new DateTimeImmutable();
 
-        $user = User::joinByEmail(
+        $user = User::requestJoinByEmail(
             Id::generate(),
             new DateTimeImmutable(),
             new Name($command->firstName, $command->lastName),

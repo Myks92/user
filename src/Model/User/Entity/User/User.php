@@ -149,7 +149,7 @@ class User implements AggregateRoot
      *
      * @return static
      */
-    public static function joinByEmail(
+    public static function requestJoinByEmail(
         Id $id,
         DateTimeImmutable $date,
         Name $name,
