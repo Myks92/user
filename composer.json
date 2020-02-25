@@ -14,7 +14,7 @@
   "require": {
     "php": "^7.4",
     "ext-PDO": "^7.4",
-    "symfony/validator": "4.4.*",
+    "symfony/validator": "^5.0",
     "doctrine/orm": "^2.7",
     "webmozart/assert": "^1.7",
     "ramsey/uuid": "^3.9",
