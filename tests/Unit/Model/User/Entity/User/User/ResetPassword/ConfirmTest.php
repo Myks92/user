@@ -11,7 +11,7 @@ use Myks92\User\Tests\Builder\User\UserBuilder;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-class ResetTest extends TestCase
+class ConfirmTest extends TestCase
 {
     public function testSuccess(): void
     {
