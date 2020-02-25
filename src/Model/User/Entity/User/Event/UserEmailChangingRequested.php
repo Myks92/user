@@ -20,15 +20,15 @@ class UserEmailChangingRequested
     /**
      * @var Id
      */
-    public Id $id;
+    private Id $id;
     /**
      * @var Email
      */
-    public Email $email;
+    private Email $email;
     /**
      * @var Token
      */
-    public Token $token;
+    private Token $token;
 
     /**
      * @param Id $id
@@ -40,5 +40,29 @@ class UserEmailChangingRequested
         $this->id = $id;
         $this->email = $email;
         $this->token = $token;
+    }
+
+    /**
+     * @return Id
+     */
+    public function getId(): Id
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return Email
+     */
+    public function getEmail(): Email
+    {
+        return $this->email;
+    }
+
+    /**
+     * @return Token
+     */
+    public function getToken(): Token
+    {
+        return $this->token;
     }
 }

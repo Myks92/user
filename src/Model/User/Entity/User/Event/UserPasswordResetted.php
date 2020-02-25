@@ -19,11 +19,11 @@ class UserPasswordResetted
     /**
      * @var Id
      */
-    public Id $id;
+    private Id $id;
     /**
      * @var DateTimeImmutable
      */
-    public DateTimeImmutable $date;
+    private DateTimeImmutable $date;
 
     /**
      * @param Id $id
@@ -33,5 +33,21 @@ class UserPasswordResetted
     {
         $this->id = $id;
         $this->date = $date;
+    }
+
+    /**
+     * @return Id
+     */
+    public function getId(): Id
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return DateTimeImmutable
+     */
+    public function getDate(): DateTimeImmutable
+    {
+        return $this->date;
     }
 }

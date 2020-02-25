@@ -20,15 +20,15 @@ class UserPasswordChangingRequested
     /**
      * @var Id
      */
-    public Id $id;
+    private Id $id;
     /**
      * @var Token
      */
-    public Token $token;
+    private Token $token;
     /**
      * @var DateTimeImmutable|DateTimeImmutable
      */
-    public DateTimeImmutable $date;
+    private DateTimeImmutable $date;
 
     /**
      * @param Id $id
@@ -40,5 +40,29 @@ class UserPasswordChangingRequested
         $this->id = $id;
         $this->token = $token;
         $this->date = $date;
+    }
+
+    /**
+     * @return Id
+     */
+    public function getId(): Id
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return Token
+     */
+    public function getToken(): Token
+    {
+        return $this->token;
+    }
+
+    /**
+     * @return DateTimeImmutable
+     */
+    public function getDate(): DateTimeImmutable
+    {
+        return $this->date;
     }
 }

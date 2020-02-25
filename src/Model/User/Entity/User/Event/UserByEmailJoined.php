@@ -22,23 +22,23 @@ class UserByEmailJoined
     /**
      * @var Id
      */
-    public Id $id;
+    private Id $id;
     /**
      * @var DateTimeImmutable
      */
-    public DateTimeImmutable $date;
+    private DateTimeImmutable $date;
     /**
      * @var Name
      */
-    public Name $name;
+    private Name $name;
     /**
      * @var Email
      */
-    public Email $email;
+    private Email $email;
     /**
      * @var Token
      */
-    public Token $token;
+    private Token $token;
 
     /**
      * @param Id $id
@@ -54,5 +54,45 @@ class UserByEmailJoined
         $this->name = $name;
         $this->email = $email;
         $this->token = $token;
+    }
+
+    /**
+     * @return Id
+     */
+    public function getId(): Id
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return DateTimeImmutable
+     */
+    public function getDate(): DateTimeImmutable
+    {
+        return $this->date;
+    }
+
+    /**
+     * @return Name
+     */
+    public function getName(): Name
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return Email
+     */
+    public function getEmail(): Email
+    {
+        return $this->email;
+    }
+
+    /**
+     * @return Token
+     */
+    public function getToken(): Token
+    {
+        return $this->token;
     }
 }

@@ -19,11 +19,11 @@ class UserBlocked
     /**
      * @var Id
      */
-    public Id $id;
+    private Id $id;
     /**
      * @var Status
      */
-    public Status $status;
+    private Status $status;
 
     /**
      * @param Id $id
@@ -33,5 +33,21 @@ class UserBlocked
     {
         $this->id = $id;
         $this->status = $status;
+    }
+
+    /**
+     * @return Id
+     */
+    public function getId(): Id
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return Status
+     */
+    public function getStatus(): Status
+    {
+        return $this->status;
     }
 }

@@ -19,11 +19,11 @@ class UserEmailChanged
     /**
      * @var Id
      */
-    public Id $id;
+    private Id $id;
     /**
      * @var Email
      */
-    public Email $email;
+    private Email $email;
 
     /**
      * @param Id $id
@@ -33,5 +33,21 @@ class UserEmailChanged
     {
         $this->id = $id;
         $this->email = $email;
+    }
+
+    /**
+     * @return Id
+     */
+    public function getId(): Id
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return Email
+     */
+    public function getEmail(): Email
+    {
+        return $this->email;
     }
 }

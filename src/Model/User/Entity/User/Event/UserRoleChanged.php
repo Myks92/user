@@ -19,11 +19,11 @@ class UserRoleChanged
     /**
      * @var Id
      */
-    public Id $id;
+    private Id $id;
     /**
      * @var Role
      */
-    public Role $role;
+    private Role $role;
 
     /**
      * @param Id $id
@@ -33,5 +33,21 @@ class UserRoleChanged
     {
         $this->id = $id;
         $this->role = $role;
+    }
+
+    /**
+     * @return Id
+     */
+    public function getId(): Id
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return Role
+     */
+    public function getRole(): Role
+    {
+        return $this->role;
     }
 }

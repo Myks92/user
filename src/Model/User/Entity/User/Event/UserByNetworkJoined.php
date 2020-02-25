@@ -20,23 +20,23 @@ class UserByNetworkJoined
     /**
      * @var Id
      */
-    public Id $id;
+    private Id $id;
     /**
      * @var DateTimeImmutable
      */
-    public DateTimeImmutable $date;
+    private DateTimeImmutable $date;
     /**
      * @var Name
      */
-    public Name $name;
+    private Name $name;
     /**
      * @var string
      */
-    public string $network;
+    private string $network;
     /**
      * @var string
      */
-    public string $identity;
+    private string $identity;
 
     /**
      * @param Id $id
@@ -53,4 +53,45 @@ class UserByNetworkJoined
         $this->network = $network;
         $this->identity = $identity;
     }
+
+    /**
+     * @return Id
+     */
+    public function getId(): Id
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return DateTimeImmutable
+     */
+    public function getDate(): DateTimeImmutable
+    {
+        return $this->date;
+    }
+
+    /**
+     * @return Name
+     */
+    public function getName(): Name
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNetwork(): string
+    {
+        return $this->network;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdentity(): string
+    {
+        return $this->identity;
+    }
+
 }

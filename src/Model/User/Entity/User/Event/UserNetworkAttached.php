@@ -18,15 +18,15 @@ class UserNetworkAttached
     /**
      * @var Id
      */
-    public Id $id;
+    private Id $id;
     /**
      * @var string
      */
-    public string $network;
+    private string $network;
     /**
      * @var string
      */
-    public string $identity;
+    private string $identity;
 
     /**
      * @param Id $id
@@ -38,5 +38,29 @@ class UserNetworkAttached
         $this->id = $id;
         $this->network = $network;
         $this->identity = $identity;
+    }
+
+    /**
+     * @return Id
+     */
+    public function getId(): Id
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNetwork(): string
+    {
+        return $this->network;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdentity(): string
+    {
+        return $this->identity;
     }
 }

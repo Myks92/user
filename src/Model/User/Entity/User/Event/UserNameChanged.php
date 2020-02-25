@@ -19,11 +19,11 @@ class UserNameChanged
     /**
      * @var Id
      */
-    public Id $id;
+    private Id $id;
     /**
      * @var Name
      */
-    public Name $name;
+    private Name $name;
 
     /**
      * @param Id $id
@@ -33,5 +33,21 @@ class UserNameChanged
     {
         $this->id = $id;
         $this->name = $name;
+    }
+
+    /**
+     * @return Id
+     */
+    public function getId(): Id
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return Name
+     */
+    public function getName(): Name
+    {
+        return $this->name;
     }
 }

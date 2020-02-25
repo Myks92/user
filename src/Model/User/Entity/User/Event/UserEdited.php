@@ -20,15 +20,15 @@ class UserEdited
     /**
      * @var Id
      */
-    public Id $id;
+    private Id $id;
     /**
      * @var Name
      */
-    public Name $name;
+    private Name $name;
     /**
      * @var Email
      */
-    public Email $email;
+    private Email $email;
 
     /**
      * @param Id $id
@@ -40,5 +40,29 @@ class UserEdited
         $this->id = $id;
         $this->name = $name;
         $this->email = $email;
+    }
+
+    /**
+     * @return Id
+     */
+    public function getId(): Id
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return Name
+     */
+    public function getName(): Name
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return Email
+     */
+    public function getEmail(): Email
+    {
+        return $this->email;
     }
 }

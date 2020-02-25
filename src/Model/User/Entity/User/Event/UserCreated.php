@@ -21,19 +21,19 @@ class UserCreated
     /**
      * @var Id
      */
-    public Id $id;
+    private Id $id;
     /**
      * @var DateTimeImmutable
      */
-    public DateTimeImmutable $date;
+    private DateTimeImmutable $date;
     /**
      * @var Name
      */
-    public Name $name;
+    private Name $name;
     /**
      * @var Email
      */
-    public Email $email;
+    private Email $email;
 
     /**
      * @param Id $id
@@ -47,5 +47,37 @@ class UserCreated
         $this->date = $date;
         $this->name = $name;
         $this->email = $email;
+    }
+
+    /**
+     * @return Id
+     */
+    public function getId(): Id
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return DateTimeImmutable
+     */
+    public function getDate(): DateTimeImmutable
+    {
+        return $this->date;
+    }
+
+    /**
+     * @return Name
+     */
+    public function getName(): Name
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return Email
+     */
+    public function getEmail(): Email
+    {
+        return $this->email;
     }
 }
