@@ -6,6 +6,7 @@ namespace Myks92\User\Tests\Unit\Model\User\Entity\User\User\ChangeEmail;
 
 use DateTimeImmutable;
 use Myks92\User\Model\User\Entity\User\Email;
+use Myks92\User\Model\User\Entity\User\Event\UserEmailChangingRequested;
 use Myks92\User\Model\User\Entity\User\Token;
 use Myks92\User\Tests\Builder\User\UserBuilder;
 use PHPUnit\Framework\TestCase;
@@ -25,6 +26,14 @@ class RequestTest extends TestCase
         self::assertEquals($token, $user->getNewEmailToken());
         self::assertEquals($old, $user->getEmail());
         self::assertEquals($new, $user->getNewEmail());
+
+        /** @var UserEmailChangingRequested $event */
+        $event = $user->releaseEvents()[2];
+
+        self::assertInstanceOf(UserEmailChangingRequested::class, $event);
+        self::assertEquals($user->getId(), $event->getId());
+        self::assertEquals($user->getNewEmail(), $event->getEmail());
+        self::assertEquals($user->getNewEmailToken(), $event->getToken());
     }
 
     public function testSame(): void

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Myks92\User\Tests\Unit\Model\User\Entity\User\User;
 
 use DateTimeImmutable;
+use Myks92\User\Model\User\Entity\User\Event\UserByNetworkJoined;
 use Myks92\User\Model\User\Entity\User\Id;
 use Myks92\User\Model\User\Entity\User\Name;
 use Myks92\User\Model\User\Entity\User\Network;
@@ -33,5 +34,15 @@ class JoinByNetworkTest extends TestCase
         self::assertInstanceOf(Network::class, $first = reset($networks));
         self::assertEquals($network, $first->getNetwork());
         self::assertEquals($identity, $first->getIdentity());
+
+        /** @var UserByNetworkJoined $event */
+        $event = $user->releaseEvents()[1];
+
+        self::assertInstanceOf(UserByNetworkJoined::class, $event);
+        self::assertEquals($user->getId(), $event->getId());
+        self::assertEquals($user->getName(), $event->getName());
+        self::assertEquals($user->getDate(), $event->getDate());
+        self::assertEquals($first->getIdentity(), $event->getIdentity());
+        self::assertEquals($first->getNetwork(), $event->getNetwork());
     }
 }

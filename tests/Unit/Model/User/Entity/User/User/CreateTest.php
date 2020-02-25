@@ -32,9 +32,10 @@ class CreateTest extends TestCase
         /** @var UserCreated $event */
         $event = $user->releaseEvents()[0];
 
-        self::assertEquals($id, $event->getId());
-        self::assertEquals($date, $event->getDate());
-        self::assertEquals($name, $event->getName());
-        self::assertEquals($email, $event->getEmail());
+        self::assertInstanceOf(UserCreated::class, $event);
+        self::assertEquals($user->getId(), $event->getId());
+        self::assertEquals($user->getDate(), $event->getDate());
+        self::assertEquals($user->getName(), $event->getName());
+        self::assertEquals($user->getEmail(), $event->getEmail());
     }
 }

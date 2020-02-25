@@ -6,6 +6,7 @@ namespace Myks92\User\Tests\Unit\Model\User\Entity\User\User\JoinByEmail;
 
 use DateTimeImmutable;
 use Myks92\User\Model\User\Entity\User\Email;
+use Myks92\User\Model\User\Entity\User\Event\UserByEmailJoined;
 use Myks92\User\Model\User\Entity\User\Id;
 use Myks92\User\Model\User\Entity\User\Name;
 use Myks92\User\Model\User\Entity\User\Role;
@@ -18,7 +19,7 @@ class RequestTest extends TestCase
 {
     public function testSuccess(): void
     {
-        $user = User::joinByEmail(
+        $user = User::requestJoinByEmail(
             $id = Id::generate(),
             $date = new DateTimeImmutable(),
             $name = new Name('First', 'Last'),
@@ -38,5 +39,15 @@ class RequestTest extends TestCase
         self::assertFalse($user->isActive());
 
         self::assertEquals(Role::USER, $user->getRole()->getName());
+
+        /** @var UserByEmailJoined $event */
+        $event = $user->releaseEvents()[0];
+
+        self::assertInstanceOf(UserByEmailJoined::class, $event);
+        self::assertEquals($user->getId(), $event->getId());
+        self::assertEquals($user->getName(), $event->getName());
+        self::assertEquals($user->getEmail(), $event->getEmail());
+        self::assertEquals($user->getJoinConfirmToken(), $event->getToken());
+        self::assertEquals($user->getDate(), $event->getDate());
     }
 }

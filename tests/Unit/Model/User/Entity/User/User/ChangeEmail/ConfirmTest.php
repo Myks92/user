@@ -6,6 +6,7 @@ namespace Myks92\User\Tests\Unit\Model\User\Entity\User\User\ChangeEmail;
 
 use DateTimeImmutable;
 use Myks92\User\Model\User\Entity\User\Email;
+use Myks92\User\Model\User\Entity\User\Event\UserEmailChanged;
 use Myks92\User\Model\User\Entity\User\Token;
 use Myks92\User\Tests\Builder\User\UserBuilder;
 use PHPUnit\Framework\TestCase;
@@ -29,6 +30,13 @@ class ConfirmTest extends TestCase
         self::assertNull($user->getNewEmail());
         self::assertNull($user->getNewEmailToken());
         self::assertEquals($new, $user->getEmail());
+
+        /** @var UserEmailChanged $event */
+        $event = $user->releaseEvents()[3];
+
+        self::assertInstanceOf(UserEmailChanged::class, $event);
+        self::assertEquals($user->getId(), $event->getId());
+        self::assertEquals($user->getEmail(), $event->getEmail());
     }
 
     public function testInvalidToken(): void

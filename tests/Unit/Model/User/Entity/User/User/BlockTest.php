@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Myks92\User\Tests\Unit\Model\User\Entity\User\User;
 
+use Myks92\User\Model\User\Entity\User\Event\UserBlocked;
 use Myks92\User\Tests\Builder\User\UserBuilder;
 use PHPUnit\Framework\TestCase;
 
@@ -17,6 +18,13 @@ class BlockTest extends TestCase
 
         self::assertFalse($user->isActive());
         self::assertTrue($user->isBlocked());
+
+        /** @var UserBlocked $event */
+        $event = $user->releaseEvents()[1];
+
+        self::assertInstanceOf(UserBlocked::class, $event);
+        self::assertEquals($user->getId(), $event->getId());
+        self::assertEquals($user->getStatus(), $event->getStatus());
     }
 
     public function testAlready(): void

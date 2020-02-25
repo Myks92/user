@@ -27,8 +27,9 @@ class EditTest extends TestCase
         /** @var UserEdited $event */
         $event = $user->releaseEvents()[1];
 
+        self::assertInstanceOf(UserEdited::class, $event);
         self::assertEquals($user->getId(), $event->getId());
-        self::assertEquals($name, $event->getName());
-        self::assertEquals($email, $event->getEmail());
+        self::assertEquals($user->getName(), $event->getName());
+        self::assertEquals($user->getEmail(), $event->getEmail());
     }
 }

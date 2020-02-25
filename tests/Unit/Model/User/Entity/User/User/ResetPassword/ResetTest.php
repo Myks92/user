@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Myks92\User\Tests\Unit\Model\User\Entity\User\User\ResetPassword;
 
 use DateTimeImmutable;
+use Myks92\User\Model\User\Entity\User\Event\UserPasswordResetted;
 use Myks92\User\Model\User\Entity\User\Token;
 use Myks92\User\Tests\Builder\User\UserBuilder;
 use PHPUnit\Framework\TestCase;
@@ -26,6 +27,13 @@ class ResetTest extends TestCase
 
         self::assertNull($user->getPasswordResetToken());
         self::assertEquals($hash, $user->getPasswordHash());
+
+        /** @var UserPasswordResetted $event */
+        $event = $user->releaseEvents()[3];
+
+        self::assertInstanceOf(UserPasswordResetted::class, $event);
+        self::assertEquals($user->getId(), $event->getId());
+        self::assertEquals($now, $event->getDate());
     }
 
     public function testExpiredToken(): void

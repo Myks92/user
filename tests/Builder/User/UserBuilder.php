@@ -100,7 +100,7 @@ class UserBuilder
             );
         }
 
-        $user = User::joinByEmail(
+        $user = User::requestJoinByEmail(
             $this->id,
             $this->date,
             $this->name,

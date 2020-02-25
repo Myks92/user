@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Myks92\User\Tests\Unit\Model\User\Entity\User\User\ResetPassword;
 
 use DateTimeImmutable;
+use Myks92\User\Model\User\Entity\User\Event\UserPasswordChangingRequested;
 use Myks92\User\Model\User\Entity\User\Token;
 use Myks92\User\Tests\Builder\User\UserBuilder;
 use PHPUnit\Framework\TestCase;
@@ -22,6 +23,13 @@ class RequestTest extends TestCase
         $user->requestPasswordReset($token, $now);
 
         self::assertNotNull($user->getPasswordResetToken());
+
+        /** @var UserPasswordChangingRequested $event */
+        $event = $user->releaseEvents()[2];
+
+        self::assertInstanceOf(UserPasswordChangingRequested::class, $event);
+        self::assertEquals($user->getId(), $event->getId());
+        self::assertEquals($user->getPasswordResetToken(), $event->getToken());
     }
 
     public function testAlready(): void
