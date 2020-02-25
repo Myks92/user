@@ -1,20 +1,20 @@
 {
-  "_readme": [
-    "This file locks the dependencies of your project to a known state",
-    "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
-    "This file is @generated automatically"
-  ],
-  "content-hash": "4b453956e041e8202789126481996394",
-  "packages": [
-    {
-      "name": "doctrine/annotations",
-      "version": "v1.8.0",
-      "source": {
-        "type": "git",
-        "url": "https://github.com/doctrine/annotations.git",
-        "reference": "904dca4eb10715b92569fbcd79e201d5c349b6bc"
-      },
-      "dist": {
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "d6860f3dbac995110e38c6e3f05f6fd1",
+    "packages": [
+        {
+            "name": "doctrine/annotations",
+            "version": "v1.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/annotations.git",
+                "reference": "904dca4eb10715b92569fbcd79e201d5c349b6bc"
+            },
+            "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/doctrine/annotations/zipball/904dca4eb10715b92569fbcd79e201d5c349b6bc",
                 "reference": "904dca4eb10715b92569fbcd79e201d5c349b6bc",
@@ -3055,8 +3055,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-      "php": "^7.4",
-      "ext-pdo": "^7.4"
+        "php": "^7.4",
+        "ext-pdo": "^7.4"
     },
     "platform-dev": []
 }
