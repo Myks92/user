@@ -10,7 +10,7 @@ use Myks92\User\Model\User\Entity\User\Email;
 use Myks92\User\Model\User\Entity\User\Id;
 
 /**
- * Event User Email Changed
+ * Event User ChangeEmail Changed
  *
  * @author Maxim Vorozhtsov <myks1992@mail.ru>
  */

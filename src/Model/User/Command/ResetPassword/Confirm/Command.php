@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Myks92\User\Model\User\Command\Create;
+namespace Myks92\User\Model\User\Command\ResetPassword\Confirm;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -14,17 +14,20 @@ class Command
     /**
      * @var string
      * @Assert\NotBlank()
-     * @Assert\ChangeEmail()
      */
-    public string $email;
+    public string $token;
     /**
      * @var string
      * @Assert\NotBlank()
+     * @Assert\Length(min=6)
      */
-    public string $firstName;
+    public string $password;
+
     /**
-     * @var string
-     * @Assert\NotBlank()
+     * @param string $token
      */
-    public string $lastName;
+    public function __construct(string $token)
+    {
+        $this->token = $token;
+    }
 }

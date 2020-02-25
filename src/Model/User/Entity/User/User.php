@@ -245,7 +245,7 @@ class User implements AggregateRoot
             throw new DomainException('User is not active.');
         }
         if ($this->email === null) {
-            throw new DomainException('Email is not specified.');
+            throw new DomainException('ChangeEmail is not specified.');
         }
         if ($this->passwordResetToken !== null && !$this->passwordResetToken->isExpiredTo($date)) {
             throw new DomainException('Resetting is already requested.');
@@ -281,7 +281,7 @@ class User implements AggregateRoot
             throw new DomainException('User is not active.');
         }
         if ($this->email !== null && $this->email->isEqual($email)) {
-            throw new DomainException('Email is already same.');
+            throw new DomainException('ChangeEmail is already same.');
         }
         if ($this->newEmailToken !== null && !$this->newEmailToken->isExpiredTo($date)) {
             throw new DomainException('Changing is already requested.');

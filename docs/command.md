@@ -43,10 +43,10 @@ $command->lastName = 'Last Name';
 $handler->handle($command);
 ```
 
-## Request email
+## Request Change Email
 
 ```php
-use Myks92\User\Model\User\Command\Email\Request;
+use Myks92\User\Model\User\Command\ChangeEmail\Request;
 
 $userId = '00000000-0000-0000-0000-000000000001'; //UUID
 
@@ -56,10 +56,10 @@ $command = new Request\Command($userId);
 $handler->handle($command);
 ```
 
-## Confirm email
+## Confirm Change Email
 
 ```php
-use Myks92\User\Model\User\Command\Email\Confirm;
+use Myks92\User\Model\User\Command\ChangeEmail\Confirm;
 
 $userId = '00000000-0000-0000-0000-000000000001'; //UUID
 
@@ -69,51 +69,51 @@ $command = new Confirm\Command($userId, 'token');
 $handler->handle($command);
 ```
 
-## Change name
+## Change Change Name
 
 ```php
-use Myks92\User\Model\User\Command\Name;
+use Myks92\User\Model\User\Command\ChangeName;
 
 $userId = '00000000-0000-0000-0000-000000000001'; //UUID
 
-$handler = new Name\Handler($users, $flusher);
-$command = new Name\Command($userId);
+$handler = new ChangeName\Handler($users, $flusher);
+$command = new ChangeName\Command($userId);
 $command->first = 'First';
 $command->last = 'Last';
 
 $handler->handle($command);
 ```
 
-## Attach network
+## Attach Network
 
 ```php
-use Myks92\User\Model\User\Command\Network\Attach;
+use Myks92\User\Model\User\Command\AttachNetwork;
 
 $userId = '00000000-0000-0000-0000-000000000001'; //UUID
 
-$handler = new Attach\Handler($users,$flusher))
-$command = new Attach\Command($userId, 'vk', 'id1');
+$handler = new AttachNetwork\Handler($users,$flusher))
+$command = new AttachNetwork\Command($userId, 'vk', 'id1');
 
 $handler->handle($command);
 ```
 
-## Detach network
+## Detach Network
 
 ```php
-use Myks92\User\Model\User\Command\Network\Detach;
+use Myks92\User\Model\User\Command\DetachNetwork;
 
 $userId = '00000000-0000-0000-0000-000000000001'; //UUID
 
-$handler = new Detach\Handler($users,$flusher))
-$command = new Detach\Command($userId, 'vk', 'id1');
+$handler = new DetachNetwork\Handler($users,$flusher))
+$command = new DetachNetwork\Command($userId, 'vk', 'id1');
 
 $handler->handle($command);
 ```
 
-## Request password by email
+## Request Reset Password
 
 ```php
-use Myks92\User\Model\User\Command\Reset\Request;
+use Myks92\User\Model\User\Command\ResetPassword\Request;
 
 $userId = '00000000-0000-0000-0000-000000000001'; //UUID
 
@@ -123,34 +123,48 @@ $command = new Request\Command($userId, 'vk', 'id1');
 $handler->handle($command);
 ```
 
-## Reset password
+## Confirm Reset Password
 
 ```php
-use Myks92\User\Model\User\Command\Reset\Reset;
+use Myks92\User\Model\User\Command\ResetPassword\Confirm;
 
-$handler = new Reset\Handler($users,$hasher,$flusher);
-$command = new Reset\Command('token');
+$handler = new Confirm\Handler($users,$hasher,$flusher);
+$command = new Confirm\Command('token');
 
 $handler->handle($command);
 ```
 
-## Change role
+## Change Role
 
 ```php
-use Myks92\User\Model\User\Command\Role;
+use Myks92\User\Model\User\Command\ChangeRole;
 
 $userId = '00000000-0000-0000-0000-000000000001'; //UUID
 
-$handler = new Role\Handler($users,$flusher);
-$command = new Role\Command($userId);
+$handler = new ChangeRole\Handler($users,$flusher);
+$command = new ChangeRole\Command($userId);
 
 $handler->handle($command);
 ```
 
-## Sign up by email
+## Join By Network
 
 ```php
-use Myks92\User\Model\User\Command\SignUp\Request;
+use Myks92\User\Model\User\Command\JoinByNetwork;
+
+$handler = new JoinByNetwork\Handler($users,$flusher);
+
+$command = new JoinByNetwork\Command('vk', 'id1');
+$command->firstName = 'First Name';
+$command->lastName = 'Last Name';
+
+$handler->handle($command);
+```
+
+## Request Join By Email
+
+```php
+use Myks92\User\Model\User\Command\JoinByEmail\Request;
 
 $handler = new Request\Handler($users,$hasher,$tokenizer,$sender,$flusher);
 
@@ -163,24 +177,10 @@ $command->password = 'password';
 $handler->handle($command);
 ```
 
-## Sign up by network
+## Confirm Join By Email By Token
 
 ```php
-use Myks92\User\Model\User\Command\Network\Auth;
-
-$handler = new Auth\Handler($users,$flusher);
-
-$command = new Auth\Command('vk', 'id1');
-$command->firstName = 'First Name';
-$command->lastName = 'Last Name';
-
-$handler->handle($command);
-```
-
-## Confirm sign up by token
-
-```php
-use Myks92\User\Model\User\Command\SignUp\Confirm\ByToken;
+use Myks92\User\Model\User\Command\JoinByEmail\Confirm\ByToken;
 
 $handler = new ByToken\Handler($users,$flusher);
 
@@ -189,16 +189,16 @@ $command = new ByToken\Command('token');
 $handler->handle($command);
 ```
 
-## Confirm sign up manual
+## Confirm Join By Email By Manual
 
 ```php
-use Myks92\User\Model\User\Command\SignUp\Confirm\Manual;
+use Myks92\User\Model\User\Command\JoinByEmail\Confirm\ByManual;
 
 $userId = '00000000-0000-0000-0000-000000000001'; //UUID
 
-$handler = new Manual\Handler($users,$flusher);
+$handler = new ByManual\Handler($users,$flusher);
 
-$command = new Manual\Command($userId);
+$command = new ByManual\Command($userId);
 
 $handler->handle($command);
 ```

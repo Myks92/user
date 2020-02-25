@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Myks92\User\Model\User\Command\Edit;
+namespace Myks92\User\Model\User\Command\ChangeName;
 
 use Myks92\User\Model\User\Entity\User\User;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -13,25 +13,20 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Command
 {
     /**
+     * @var string
      * @Assert\NotBlank()
      */
     public string $id;
     /**
      * @var string
      * @Assert\NotBlank()
-     * @Assert\ChangeEmail()
      */
-    public string $email;
+    public string $first;
     /**
      * @var string
      * @Assert\NotBlank()
      */
-    public string $firstName;
-    /**
-     * @var string
-     * @Assert\NotBlank()
-     */
-    public string $lastName;
+    public string $last;
 
     /**
      * @param string $id
@@ -49,9 +44,8 @@ class Command
     public static function fromUser(User $user): self
     {
         $command = new self($user->getId()->getValue());
-        $command->email = $user->getEmail() ? $user->getEmail()->getValue() : null;
-        $command->firstName = $user->getName()->getFirst();
-        $command->lastName = $user->getName()->getLast();
+        $command->first = $user->getName()->getFirst();
+        $command->last = $user->getName()->getLast();
         return $command;
     }
 }

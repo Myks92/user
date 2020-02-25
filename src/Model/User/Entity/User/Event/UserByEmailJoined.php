@@ -13,7 +13,7 @@ use Myks92\User\Model\User\Entity\User\Name;
 use Myks92\User\Model\User\Entity\User\Token;
 
 /**
- * Event User By Email Registered
+ * Event User By ChangeEmail Registered
  *
  * @author Maxim Vorozhtsov <myks1992@mail.ru>
  */

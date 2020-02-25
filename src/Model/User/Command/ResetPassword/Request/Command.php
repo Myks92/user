@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Myks92\User\Model\User\Command\Create;
+namespace Myks92\User\Model\User\Command\ResetPassword\Request;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -17,14 +17,4 @@ class Command
      * @Assert\ChangeEmail()
      */
     public string $email;
-    /**
-     * @var string
-     * @Assert\NotBlank()
-     */
-    public string $firstName;
-    /**
-     * @var string
-     * @Assert\NotBlank()
-     */
-    public string $lastName;
 }

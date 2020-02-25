@@ -11,7 +11,7 @@ use Myks92\User\Model\User\Entity\User\Id;
 use Myks92\User\Model\User\Entity\User\Token;
 
 /**
- * Event User Email Changing Requested
+ * Event User ChangeEmail Changing Requested
  *
  * @author Maxim Vorozhtsov <myks1992@mail.ru>
  */
