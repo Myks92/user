@@ -32,3 +32,63 @@ class SimpleEventDispatcher implements EventDispatcherInterface
 
 - [Symfony](https://github.com/symfony/event-dispatcher)
 - [Yii2](https://github.com/yiisoft/event-dispatcher)
+
+## Join confirm token sender
+
+```php
+use Myks92\User\Model\User\Entity\User\Email;
+use Myks92\User\Model\User\Entity\User\Token;
+use Myks92\User\Model\User\Service\JoinConfirmTokenSenderInterface;
+
+class JoinConfirmTokenSender implements JoinConfirmTokenSenderInterface
+{
+    /**
+     * @param Email $email
+     * @param Token $token
+     */
+    public function send(Email $email, Token $token): void 
+    {
+        // Send email with confirm token for join
+    }
+}
+```
+
+## Password reset token sender
+
+```php
+use Myks92\User\Model\User\Entity\User\Email;
+use Myks92\User\Model\User\Entity\User\Token;
+use Myks92\User\Model\User\Service\PasswordResetTokenSenderInterface;
+
+class PasswordResetTokenSender implements PasswordResetTokenSenderInterface
+{
+    /**
+     * @param Email $email
+     * @param Token $token
+     */
+    public function send(Email $email, Token $token): void 
+    {
+        // Send email with reset token
+    }
+}
+```
+
+## New email confirm token sender
+
+```php
+use Myks92\User\Model\User\Entity\User\Email;
+use Myks92\User\Model\User\Entity\User\Token;
+use Myks92\User\Model\User\Service\NewEmailConfirmTokenSenderInterface;
+
+class NewEmailConfirmTokenSender implements NewEmailConfirmTokenSenderInterface
+{
+    /**
+     * @param Email $email
+     * @param Token $token
+     */
+    public function send(Email $email, Token $token): void 
+    {
+        // Send email with confirm token for change email
+    }
+}
+```
