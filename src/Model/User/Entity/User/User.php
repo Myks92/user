@@ -33,7 +33,6 @@ use Myks92\User\Model\User\Entity\User\Event\UserRoleChanged;
  * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="user_users", uniqueConstraints={
  *     @ORM\UniqueConstraint(columns={"email"}),
- *     @ORM\UniqueConstraint(columns={"reset_token_token"})
  * })
  */
 class User implements AggregateRoot
