@@ -75,4 +75,12 @@ class Status
     {
         return $this->name === self::BLOCKED;
     }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
 }
