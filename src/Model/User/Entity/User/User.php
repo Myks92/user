@@ -490,8 +490,14 @@ class User implements AggregateRoot
      */
     public function checkEmbeds(): void
     {
-        if ($this->passwordResetToken->isEmpty()) {
+        if ($this->joinConfirmToken && $this->joinConfirmToken->isEmpty()) {
+            $this->joinConfirmToken = null;
+        }
+        if ($this->passwordResetToken && $this->passwordResetToken->isEmpty()) {
             $this->passwordResetToken = null;
+        }
+        if ($this->newEmailToken && $this->newEmailToken->isEmpty()) {
+            $this->newEmailToken = null;
         }
     }
 }
