@@ -7,6 +7,7 @@ namespace Myks92\User\Model\User\Entity\User\Event;
 
 
 use DateTimeImmutable;
+use Myks92\User\Model\User\Entity\User\Email;
 use Myks92\User\Model\User\Entity\User\Id;
 use Myks92\User\Model\User\Entity\User\Name;
 
@@ -30,6 +31,10 @@ class UserByNetworkJoined
      */
     private Name $name;
     /**
+     * @var Email
+     */
+    private Email $email;
+    /**
      * @var string
      */
     private string $network;
@@ -42,14 +47,22 @@ class UserByNetworkJoined
      * @param Id $id
      * @param DateTimeImmutable $date
      * @param Name $name
+     * @param Email $email
      * @param string $network
      * @param string $identity
      */
-    public function __construct(Id $id, DateTimeImmutable $date, Name $name, string $network, string $identity)
-    {
+    public function __construct(
+        Id $id,
+        DateTimeImmutable $date,
+        Name $name,
+        Email $email,
+        string $network,
+        string $identity
+    ) {
         $this->id = $id;
         $this->date = $date;
         $this->name = $name;
+        $this->email = $email;
         $this->network = $network;
         $this->identity = $identity;
     }
@@ -79,6 +92,14 @@ class UserByNetworkJoined
     }
 
     /**
+     * @return Email
+     */
+    public function getEmail(): Email
+    {
+        return $this->email;
+    }
+
+    /**
      * @return string
      */
     public function getNetwork(): string
@@ -93,5 +114,4 @@ class UserByNetworkJoined
     {
         return $this->identity;
     }
-
 }

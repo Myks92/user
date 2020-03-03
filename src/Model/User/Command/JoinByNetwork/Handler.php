@@ -8,6 +8,7 @@ use DateTimeImmutable;
 use DomainException;
 use Exception;
 use Myks92\User\Model\FlusherInterface;
+use Myks92\User\Model\User\Entity\User\Email;
 use Myks92\User\Model\User\Entity\User\Id;
 use Myks92\User\Model\User\Entity\User\Name;
 use Myks92\User\Model\User\Entity\User\User;
@@ -52,6 +53,7 @@ class Handler
             Id::generate(),
             new DateTimeImmutable(),
             new Name($command->firstName, $command->lastName),
+            new Email($command->email),
             $command->network,
             $command->identity
         );

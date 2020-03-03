@@ -50,10 +50,15 @@ class User implements AggregateRoot
      */
     private DateTimeImmutable $date;
     /**
-     * @var Email|null
-     * @ORM\Column(type="user_user_email", nullable=true)
+     * @var Name
+     * @ORM\Embedded(class="Name")
      */
-    private ?Email $email = null;
+    private Name $name;
+    /**
+     * @var Email
+     * @ORM\Column(type="user_user_email")
+     */
+    private Email $email;
     /**
      * @var string|null
      * @ORM\Column(type="string", name="password_hash", nullable=true)
@@ -64,11 +69,6 @@ class User implements AggregateRoot
      * @ORM\Embedded(class="Token", columnPrefix="join_confirm_token_")
      */
     private ?Token $joinConfirmToken = null;
-    /**
-     * @var Name
-     * @ORM\Embedded(class="Name")
-     */
-    private Name $name;
     /**
      * @var Email|null
      * @ORM\Column(type="user_user_email", name="new_email", nullable=true)
@@ -109,13 +109,15 @@ class User implements AggregateRoot
      * @param Id $id
      * @param DateTimeImmutable $date
      * @param Name $name
+     * @param Email $email
      * @param Status $status
      */
-    private function __construct(Id $id, DateTimeImmutable $date, Name $name, Status $status)
+    private function __construct(Id $id, DateTimeImmutable $date, Name $name, Email $email, Status $status)
     {
         $this->id = $id;
         $this->date = $date;
         $this->name = $name;
+        $this->email = $email;
         $this->status = $status;
         $this->role = Role::user();
         $this->networks = new ArrayCollection();
@@ -132,8 +134,7 @@ class User implements AggregateRoot
      */
     public static function create(Id $id, DateTimeImmutable $date, Name $name, Email $email, string $hash): self
     {
-        $user = new self($id, $date, $name, Status::active());
-        $user->email = $email;
+        $user = new self($id, $date, $name, $email, Status::active());
         $user->passwordHash = $hash;
         $user->recordEvent(new UserCreated($id, $date, $name, $email));
         return $user;
@@ -157,8 +158,7 @@ class User implements AggregateRoot
         string $hash,
         Token $token
     ): self {
-        $user = new self($id, $date, $name, Status::wait());
-        $user->email = $email;
+        $user = new self($id, $date, $name, $email, Status::wait());
         $user->passwordHash = $hash;
         $user->joinConfirmToken = $token;
         $user->recordEvent(new UserByEmailJoined($id, $date, $name, $email, $token));
@@ -169,6 +169,7 @@ class User implements AggregateRoot
      * @param Id $id
      * @param DateTimeImmutable $date
      * @param Name $name
+     * @param Email $email
      * @param string $network
      * @param string $identity
      *
@@ -179,12 +180,13 @@ class User implements AggregateRoot
         Id $id,
         DateTimeImmutable $date,
         Name $name,
+        Email $email,
         string $network,
         string $identity
     ): self {
-        $user = new self($id, $date, $name, Status::active());
+        $user = new self($id, $date, $name, $email, Status::active());
         $user->attachNetwork($network, $identity);
-        $user->recordEvent(new UserByNetworkJoined($id, $date, $name, $network, $identity));
+        $user->recordEvent(new UserByNetworkJoined($id, $date, $name, $email, $network, $identity));
         return $user;
     }
 
@@ -224,7 +226,7 @@ class User implements AggregateRoot
     {
         foreach ($this->networks as $existing) {
             if ($existing->isFor($network, $identity)) {
-                if (!$this->email && $this->networks->count() === 1) {
+                if ($this->networks->count() === 1) {
                     throw new DomainException('Unable to detach the last identity.');
                 }
                 $this->networks->removeElement($existing);
@@ -243,9 +245,6 @@ class User implements AggregateRoot
     {
         if (!$this->isActive()) {
             throw new DomainException('User is not active.');
-        }
-        if ($this->email === null) {
-            throw new DomainException('ChangeEmail is not specified.');
         }
         if ($this->passwordResetToken !== null && !$this->passwordResetToken->isExpiredTo($date)) {
             throw new DomainException('Resetting is already requested.');
@@ -280,7 +279,7 @@ class User implements AggregateRoot
         if (!$this->isActive()) {
             throw new DomainException('User is not active.');
         }
-        if ($this->email !== null && $this->email->isEqual($email)) {
+        if ($this->email->isEqual($email)) {
             throw new DomainException('ChangeEmail is already same.');
         }
         if ($this->newEmailToken !== null && !$this->newEmailToken->isExpiredTo($date)) {
@@ -406,9 +405,9 @@ class User implements AggregateRoot
     }
 
     /**
-     * @return Email|null
+     * @return Email
      */
-    public function getEmail(): ?Email
+    public function getEmail(): Email
     {
         return $this->email;
     }

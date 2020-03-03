@@ -31,6 +31,12 @@ class Command
      * @Assert\NotBlank()
      */
     public string $lastName;
+    /**
+     * @var string
+     * @Assert\NotBlank()
+     * @Assert\Email()
+     */
+    public string $email;
 
     /**
      * @param string $network

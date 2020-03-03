@@ -35,7 +35,7 @@ class DetachNetworkTest extends TestCase
         self::assertEquals($identityFacebook, $event->getIdentity());
     }
 
-    public function testAlready(): void
+    public function testLast(): void
     {
         $user = (new UserBuilder())->viaNetwork($network = 'vk', $identity = '0000001')->active()->build();
 

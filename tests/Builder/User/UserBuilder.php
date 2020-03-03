@@ -95,6 +95,7 @@ class UserBuilder
                 $this->id,
                 $this->date,
                 $this->name,
+                $this->email,
                 $this->network,
                 $this->identity
             );

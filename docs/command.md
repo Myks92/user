@@ -157,6 +157,7 @@ $handler = new JoinByNetwork\Handler($users,$flusher);
 $command = new JoinByNetwork\Command('vk', 'id1');
 $command->firstName = 'First Name';
 $command->lastName = 'Last Name';
+$command->email = 'email@app.ru';
 
 $handler->handle($command);
 ```
