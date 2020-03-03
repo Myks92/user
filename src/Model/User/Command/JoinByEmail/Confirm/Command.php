@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Myks92\User\Model\User\Command\JoinByEmail\Confirm\ByToken;
+namespace Myks92\User\Model\User\Command\JoinByEmail\Confirm;
 
 
 /**

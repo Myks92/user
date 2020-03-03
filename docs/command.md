@@ -177,28 +177,14 @@ $command->password = 'password';
 $handler->handle($command);
 ```
 
-## Confirm Join By Email By Token
+## Confirm Join By Email
 
 ```php
-use Myks92\User\Model\User\Command\JoinByEmail\Confirm\ByToken;
+use Myks92\User\Model\User\Command\JoinByEmail\Confirm;
 
-$handler = new ByToken\Handler($users,$flusher);
+$handler = new Confirm\Handler($users,$flusher);
 
-$command = new ByToken\Command('token');
-
-$handler->handle($command);
-```
-
-## Confirm Join By Email By Manual
-
-```php
-use Myks92\User\Model\User\Command\JoinByEmail\Confirm\ByManual;
-
-$userId = '00000000-0000-0000-0000-000000000001'; //UUID
-
-$handler = new ByManual\Handler($users,$flusher);
-
-$command = new ByManual\Command($userId);
+$command = new Confirm\Command('token');
 
 $handler->handle($command);
 ```
