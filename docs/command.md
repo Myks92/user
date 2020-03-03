@@ -118,7 +118,7 @@ use Myks92\User\Model\User\Command\ResetPassword\Request;
 $userId = '00000000-0000-0000-0000-000000000001'; //UUID
 
 $handler = new Request\Handler($users,$tokenizer,$flusher,$sender);
-$command = new Request\Command($userId, 'vk', 'id1');
+$command = new Request\Command('user@test.app');
 
 $handler->handle($command);
 ```

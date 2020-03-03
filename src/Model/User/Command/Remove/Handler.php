@@ -8,7 +8,7 @@ namespace Myks92\User\Model\User\Command\Remove;
 
 use Myks92\User\Model\Flusher;
 use Myks92\User\Model\User\Entity\User\Id;
-use Myks92\User\Model\User\Entity\User\UserRepository;
+use Myks92\User\Model\User\Entity\User\UserRepositoryInterface;
 
 /**
  * @author Maxim Vorozhtsov <myks1992@mail.ru>
@@ -16,19 +16,19 @@ use Myks92\User\Model\User\Entity\User\UserRepository;
 class Handler
 {
     /**
-     * @var UserRepository
+     * @var UserRepositoryInterface
      */
-    private UserRepository $users;
+    private UserRepositoryInterface $users;
     /**
      * @var Flusher
      */
     private Flusher $flusher;
 
     /**
-     * @param UserRepository $users
+     * @param UserRepositoryInterface $users
      * @param Flusher $flusher
      */
-    public function __construct(UserRepository $users, Flusher $flusher)
+    public function __construct(UserRepositoryInterface $users, Flusher $flusher)
     {
         $this->users = $users;
         $this->flusher = $flusher;
