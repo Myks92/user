@@ -10,7 +10,8 @@
 
 Branch | Travis |
 ------ | ------ |
-1.x   | [![Build Status][travis_stable_badge]][travis_stable_link]
+2.x   | [![Build Status][travis_2x_badge]][travis_2x_link]
+1.x   | [![Build Status][travis_1x_badge]][travis_1x_link]
 master | [![Build Status][travis_unstable_badge]][travis_unstable_link]
 
 
@@ -40,7 +41,9 @@ All use instructions are located in [documentation](./docs/readme.md).
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[travis_stable_badge]: https://travis-ci.org/Myks92/user.svg?branch=1.x
-[travis_stable_link]: https://travis-ci.org/Myks92/user
+[travis_2x_badge]: https://travis-ci.org/Myks92/user.svg?branch=2.x
+[travis_2x_link]: https://travis-ci.org/Myks92/user
+[travis_1x_badge]: https://travis-ci.org/Myks92/user.svg?branch=1.x
+[travis_1x_link]: https://travis-ci.org/Myks92/user
 [travis_unstable_badge]: https://travis-ci.org/Myks92/user.svg?branch=master
 [travis_unstable_link]: https://travis-ci.org/Myks92/user
