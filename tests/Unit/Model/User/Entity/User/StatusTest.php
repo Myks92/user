@@ -9,6 +9,9 @@ namespace Myks92\User\Tests\Unit\Model\User\Entity\User;
 use Myks92\User\Model\User\Entity\User\Status;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Myks92\User\Model\User\Entity\User\Status
+ */
 class StatusTest extends TestCase
 {
     public function testWait(): void

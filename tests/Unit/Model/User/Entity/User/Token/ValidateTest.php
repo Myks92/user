@@ -11,6 +11,9 @@ use Myks92\User\Model\User\Entity\User\Token;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @covers \Myks92\User\Model\User\Entity\User\Token::validate
+ */
 class ValidateTest extends TestCase
 {
     /**

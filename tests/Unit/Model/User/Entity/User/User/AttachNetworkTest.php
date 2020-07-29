@@ -9,6 +9,9 @@ use Myks92\User\Model\User\Entity\User\Network;
 use Myks92\User\Tests\Builder\User\UserBuilder;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Myks92\User\Model\User\Entity\User\User
+ */
 class AttachNetworkTest extends TestCase
 {
     public function testSuccess(): void
