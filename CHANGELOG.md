@@ -1,3 +1,11 @@
+## 2.1.0 (2020-06-29)
+* Added coverage annotations
+* Updated symfony/validator
+* Updated phpunit/phpunit
+* Updated webmozart/assert
+* Updated ramsey/uuid
+* Updated composer.lock
+
 ## 2.0.0 (2020-03-03)
 
 * Required email at joined
