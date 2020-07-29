@@ -12,6 +12,9 @@ use Myks92\User\Model\User\Entity\User\Token;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @covers \Myks92\User\Model\User\Entity\User\Token
+ */
 class CreateTest extends TestCase
 {
     public function testSuccess(): void

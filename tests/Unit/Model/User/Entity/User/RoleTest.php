@@ -10,6 +10,9 @@ use InvalidArgumentException;
 use Myks92\User\Model\User\Entity\User\Role;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Myks92\User\Model\User\Entity\User\Role
+ */
 class RoleTest extends TestCase
 {
     public function testSuccess(): void

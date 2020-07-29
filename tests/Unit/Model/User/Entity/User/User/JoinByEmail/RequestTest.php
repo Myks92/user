@@ -15,6 +15,9 @@ use Myks92\User\Model\User\Entity\User\User;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @covers \Myks92\User\Model\User\Entity\User\User
+ */
 class RequestTest extends TestCase
 {
     public function testSuccess(): void

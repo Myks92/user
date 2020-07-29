@@ -10,6 +10,9 @@ use Myks92\User\Model\User\Entity\User\Event\UserRemoved;
 use Myks92\User\Tests\Builder\User\UserBuilder;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Myks92\User\Model\User\Entity\User\User
+ */
 class RemoveTest extends TestCase
 {
     public function testSuccess(): void

@@ -12,6 +12,9 @@ use Myks92\User\Model\User\Entity\User\Name;
 use Myks92\User\Model\User\Entity\User\User;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Myks92\User\Model\User\Entity\User\User
+ */
 class CreateTest extends TestCase
 {
     public function testSuccess(): void

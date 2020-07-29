@@ -11,6 +11,9 @@ use DateTimeImmutable;
 use Myks92\User\Model\User\Service\Tokenizer;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Myks92\User\Model\User\Service\Tokenizer
+ */
 class TokenizerTest extends TestCase
 {
     public function testSuccess(): void

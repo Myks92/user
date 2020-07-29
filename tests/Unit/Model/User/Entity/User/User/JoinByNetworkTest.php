@@ -13,6 +13,9 @@ use Myks92\User\Model\User\Entity\User\Network;
 use Myks92\User\Model\User\Entity\User\User;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Myks92\User\Model\User\Entity\User\User
+ */
 class JoinByNetworkTest extends TestCase
 {
     public function testSuccess(): void

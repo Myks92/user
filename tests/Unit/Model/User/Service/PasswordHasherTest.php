@@ -9,6 +9,9 @@ use InvalidArgumentException;
 use Myks92\User\Model\User\Service\PasswordHasher;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Myks92\User\Model\User\Service\PasswordHasher
+ */
 class PasswordHasherTest extends TestCase
 {
     public function testSuccess(): void
